@@ -1,0 +1,240 @@
+.blogs{
+    display: flex;
+    gap: 70px;
+}
+.infos{
+    display: flex;
+}
+.logo{
+    height: 100px;
+    width: 200px;
+    color: rgb(255, 154, 98);
+}
+span{
+    color: rgb(255, 154, 98); 
+}
+.tittle1 {
+    margin-top: 57px;
+}
+.navbars{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+.liste{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    color: white; 
+    gap: 50px;
+    margin-top: 62px;
+    list-style-type: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.liste a.active {
+  color: rgb(224, 12, 139);
+}
+li a{
+    color: white;
+    text-decoration: none;
+}
+.list li a:hover,
+.list li a.active {
+  color: rgb(224, 12, 139);
+}
+.outil{
+    color: white;
+    margin-top: 65px;
+   margin-left: 90px;
+   cursor: pointer;
+}
+
+.blog2{
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    /* margin-top: 40px; */
+    /* justify-content: space-between; */
+}
+.second-nav{
+    display: flex;
+    text-align: center;
+    justify-content: space-between; 
+}
+.nouveaute{
+    display: flex !important;
+    text-align: center;
+    justify-content: space-between;
+    color: white; 
+    gap: 50px;
+    
+    list-style-type: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 20px; 
+}
+
+.titlle2{
+    color: rgb(224, 12, 139);
+    margin-left: 32px;
+}
+
+.boxe {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-left: 95px;
+  }
+  
+  .input-containers {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .edite-input4 {
+    padding-right: 40px; /* Ajustez la valeur selon vos besoins */
+    background-color: black;
+    height: 35px;
+    width: 250px;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+  }
+  
+  .icon-containers {
+    position: absolute;
+    right: 10px; /* Ajustez la valeur selon vos besoins */
+    display: flex;
+    align-items: center;
+  }
+
+  .events{
+    margin-bottom: 40px;
+  }
+
+/* PARTIE MAIN */
+ .main{
+  display: flex;
+  margin-bottom: 50px;
+  /* justify-content: space-between;
+  align-items: center; */
+ }
+ .videos{
+  margin-right: 20px;
+  margin-bottom: 22px;
+ }
+ .empty-image-list{
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+  margin-left: 100px;
+ }
+
+
+ .biblio{
+    color: white;
+    display: flex;
+    margin-left: 35px;
+    margin-bottom: 10px;
+ }
+
+ .write-biblio{
+    font-size: 20px;
+    margin-bottom: 5px;
+ }
+ 
+  .all-events{
+    color: white;
+    display: flex;
+  }
+  .historic{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .chaines{
+    color: white;
+    margin-left: 35px;
+   
+  }
+  .list-channel{
+    display: flex;
+    
+  }
+  .next{
+    font-size: 18px;
+    margin-left: 175px;
+    cursor: pointer;
+  }
+  .categorie{
+    color: white;
+    display: flex;
+  }
+  .categorie-web{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .categorie li a:hover,
+.categorie li a.active {
+  color: rgb(224, 12, 139);
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    font-size: 14px;
+    cursor: pointer;  
+}
+
+.items{
+  font-size: 16px;
+  width: 100%;
+  margin-right: 50px;
+} 
+.div li a:hover,
+.div li a.active {
+  color: rgb(224, 12, 139);
+}
+.div{
+    margin-top: 50px;
+    right: 370px;
+    position: relative;
+}
+
+.imageItem{
+  margin-left: -50px;
+}
+
+/* .image-hover-container:hover .imageItem {
+  transform: scale(1.2);
+} */
+ .button1{
+  color: white;
+  height: 45px;
+  width: 300px;
+  background-color: rgb(224, 12, 139);
+  border-radius: 10px;
+  border: 2px solid rgb(224, 12, 139);
+  border-color: rgb(224, 12, 139);
+  text-align: center;
+  font-size: 16px;
+ cursor: pointer;
+ margin-left: 600px;
+ position: relative;
+  top: -85px;
+} 
+  

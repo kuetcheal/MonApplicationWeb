@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Connexion from "./components/Authentification/connexion";
+import Inscription from "./components/Authentification/inscription";
+import ForgetPassword from "./components/Authentification/forgetPassword";
+import Navbar from "./components/navbar"; // Importez correctement votre composant navbar.jsx
+import Videos from "./components/videos";
+import Videos1 from "./components/videos1";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+      <Route path="/inscription" element={<Inscription/>} />
+      <Route path="/" element={<Connexion/>} />
+      <Route path="/navbar" element={<Navbar/>} /> 
+      <Route path="/forgetPassword" element={<ForgetPassword/>} /> 
+      <Route path="/videos" element={<Videos/>} />
+      <Route path="/videos1" element={<Videos1/>} />
+      </Routes>
+    </Router> 
   );
-}
+};
 
 export default App;

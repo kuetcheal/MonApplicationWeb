@@ -1,0 +1,88 @@
+.header{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    
+}
+/* .logo{
+    height: 310px;
+    width: 250px;
+    color: rgb(255, 154, 98);
+
+} */
+span{
+    color: rgb(255, 154, 98); 
+}
+.tittle {
+    margin-left: 400px;
+}
+.connection{
+ margin-left: 65px; 
+color: whitesmoke;
+}
+.slogan{
+    color: rgb(224, 12, 139);
+    font-size: 20px;
+    /* margin-bottom: 90px; */
+    margin-left: 300px;
+}
+.connecter-button{
+    height: 50px;
+    width: 475px;
+    background-color: rgb(255, 154, 98);
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    border: 2px solid rgb(255, 154, 98);
+    color: white;
+    font-size: 20px;
+   
+}
+.connecter-button:hover {
+    background-color: #e67e22;
+  }
+
+  .connexion{
+    align-items: center;
+    gap: 20px;
+  }
+
+  .main{
+    display: flex;
+  }
+  .box{
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+    margin-bottom: 150px;
+    margin-left: 100px;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .edit-input4 {
+    padding-right: 40px; /* Ajustez la valeur selon vos besoins */
+     background-color: none; 
+    height: 35px;
+    width: 450px;
+    color: black;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+  }
+  .forgot-password{
+  color: white;
+  cursor: pointer;
+  margin-left: 110px; 
+}
+.forgot-password:hover {
+  color: rgb(224, 12, 139);
+}
+
+  
