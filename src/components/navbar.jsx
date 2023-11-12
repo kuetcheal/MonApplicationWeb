@@ -141,7 +141,7 @@ function Navbar() {
               <a href="#">Tendances</a>
             </li>
             <li>
-              <a href="#">Les plus regardés</a>
+              <a href="#">Les plus regardés aujourd'hui</a>
             </li>
           </ul>
         </div>
