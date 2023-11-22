@@ -98,16 +98,15 @@ const Inscription = () => {
               component="h1"
               style={{ color: "white", marginRight: "90px" }}
             >
-              <Link to="/forgetPassword"> Mot de passe oublié ? </Link>
+              <Link className="forgot__link" to="/forgetPassword">
+                {" "}
+                <span> Mot de passe oublié ?</span>{" "}
+              </Link>
             </Typography>
           </div>
         </div>
         <div className="site">
-          <img
-            src={process.env.PUBLIC_URL + "/site.PNG"}
-            alt="Mon image"
-            style={{ height: "400px", width: "650px", marginLeft: "120px" }}
-          />
+          <img src={process.env.PUBLIC_URL + "/site.PNG"} alt="Mon image" />
         </div>
       </div>
       <div className="confidentialite">
