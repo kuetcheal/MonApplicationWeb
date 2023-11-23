@@ -1,20 +1,16 @@
 import React from "react";
 import { Typography, Card } from "@mui/material";
 import "./forgetPassword.css";
-//import { Link } from 'react-router-dom'
-//import SearchIcon from "@mui/icons-material/Search";
-//import VisibilityIcon from '@mui/icons-material/Visibility';
-//import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-//import Card from '@material-ui/core/Card';
+import { Link } from "react-router-dom";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 const styles = {
   card: {
     backgroundColor: "black",
-    height: "100%",
+    height: "260%",
     width: "100%",
-    // backgroundImage: `url('https://c.wallhere.com/photos/45/4f/1920x1080_px_artwork_Colorful_digital_art_Lights-569988.jpg!d')`,
-    // backgroundSize: "cover",
-    // backgroundPosition: "center",
   },
 };
 
@@ -55,12 +51,12 @@ const Inscription = () => {
           {" "}
           <div className="slogane">
             <Typography variant="h4" component="h1" style={{ color: "white" }}>
-             Mot de passe oublier
+              Mot de passe oublier
             </Typography>
           </div>
           <div className="inscription">
             <Typography variant="h6" component="h1" style={{ color: "white" }}>
-             Veuillez renseigner l'addresse email du compte
+              Veuillez renseigner l'addresse email du compte
               {/* <Link className="suppression__link" to="/navbar">
                     Mot de passe oublié
                 </Link> */}
@@ -71,13 +67,15 @@ const Inscription = () => {
               className="edit-input4"
               placeholder="username ou email"
               type="text"
-              style={{width: "450px"}}
+              style={{ width: "450px" }}
             />
           </div>
-        
           <div className="connexion">
             <div className="connecter">
-              <button className="connecter-button"> Passer à l'étape suivante </button>
+              <button className="connecter-button">
+                {" "}
+                Passer à l'étape suivante{" "}
+              </button>
             </div>{" "}
           </div>
           <div className="forgot-password">
@@ -92,6 +90,25 @@ const Inscription = () => {
             alt="Mon image"
             style={{ height: "350px", width: "650px", marginLeft: "120px" }}
           />
+        </div>
+      </div>
+      <div className="confidentialites">
+        <div className="item">
+          <Link to="/#">@Jenee</Link>
+          <Link to="/#">Contact</Link>
+          <Link to="/#">Confidentialité</Link>
+          <Link to="/#">CGU</Link>
+        </div>
+        <div className="outil">
+          <Link to="/#">
+            <FacebookIcon />
+          </Link>
+          <Link to="/#">
+            <TwitterIcon />
+          </Link>
+          <Link to="/#">
+            <WhatsAppIcon />
+          </Link>
         </div>
       </div>
     </Card>

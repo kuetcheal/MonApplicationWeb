@@ -145,7 +145,16 @@ span{
 .outils svg {
   width: 30px; 
   height: 30px; 
+  color: whitesmoke;
 }
+
+.outils svg:hover{
+  color: rgb(224, 12, 139);
+ }
+
+ .items a:hover{
+    color: rgb(224, 12, 139);
+   }
 
 .suppression__link {
   margin-left: 2px;
