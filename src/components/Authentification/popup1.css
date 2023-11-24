@@ -1,0 +1,16 @@
+.popup1 {
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000; */
+    height: 200px;
+    width: 300px;
+  }
+  .popup1__title{
+    color: red;
+  }
+  

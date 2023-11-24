@@ -117,7 +117,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="outil">
+        <div className="outiles">
           <NotificationImportantIcon style={{ marginRight: "14px" }} />
           <AddToPhotosIcon style={{ marginRight: "14px" }} />
           <AccountCircleIcon style={{ marginRight: "14px" }} />

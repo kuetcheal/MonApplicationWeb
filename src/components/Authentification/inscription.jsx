@@ -1,23 +1,32 @@
-import React from "react";
-import { Typography, Card } from "@mui/material";
+import * as React from "react";
+import { Typography, Card, Dialog } from "@mui/material";
 import "./inscription.css";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import Popup1 from "./popup1";
 
 const styles = {
   card: {
     backgroundColor: "black",
     height: "660px",
     width: "100%",
-    // backgroundImage: `url('https://c.wallhere.com/photos/45/4f/1920x1080_px_artwork_Colorful_digital_art_Lights-569988.jpg!d')`,
-    // backgroundSize: "cover",
-    // backgroundPosition: "center",
   },
 };
 
 const Inscription = () => {
+  //gestion d'ouverture et de fermeture de la popup
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Card style={styles.card}>
       <div className="header">
@@ -86,8 +95,14 @@ const Inscription = () => {
           </div>
           <div className="connexion">
             <div className="connecter">
-              <button className="connecter-button"> S'inscrire </button>
+              <button className="connecter-button" onClick={handleOpen}>
+                {" "}
+                S'inscrire{" "}
+              </button>
             </div>{" "}
+            <Dialog open={open} onClose={handleClose}>
+              <Popup1 handleClose={handleClose} />
+            </Dialog>
           </div>
           <div
             className="forgot-password"

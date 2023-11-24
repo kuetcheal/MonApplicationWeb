@@ -9,7 +9,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 const styles = {
   card: {
     backgroundColor: "black",
-    height: "260%",
+    height: "660px",
     width: "100%",
   },
 };
@@ -57,9 +57,6 @@ const Inscription = () => {
           <div className="inscription">
             <Typography variant="h6" component="h1" style={{ color: "white" }}>
               Veuillez renseigner l'addresse email du compte
-              {/* <Link className="suppression__link" to="/navbar">
-                    Mot de passe oublié
-                </Link> */}
             </Typography>
           </div>
           <div className="input-container">
