@@ -1,11 +1,20 @@
 import * as React from "react";
-import { Typography, Card, Dialog } from "@mui/material";
+import {
+  Typography,
+  Card,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+} from "@mui/material";
 import "./inscription.css";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Popup1 from "./popup1";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const styles = {
   card: {
@@ -16,10 +25,9 @@ const styles = {
 };
 
 const Inscription = () => {
-  //gestion d'ouverture et de fermeture de la popup
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
+  const handleClickOpen = () => {
     setOpen(true);
   };
 
@@ -95,14 +103,36 @@ const Inscription = () => {
           </div>
           <div className="connexion">
             <div className="connecter">
-              <button className="connecter-button" onClick={handleOpen}>
-                {" "}
-                S'inscrire{" "}
+              <button
+                variant="outlined"
+                onClick={handleClickOpen}
+                className="connecter-button"
+              >
+                S'inscrire
               </button>
+              <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Vous y êtes presque, pour confirmer votre inscription
+                    veuillez consulter votre email et entrer le code reçu.
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="confirmation code"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button onClick={handleClose}>Subscribe</Button>
+                </DialogActions>
+              </Dialog>
             </div>{" "}
-            <Dialog open={open} onClose={handleClose}>
-              <Popup1 handleClose={handleClose} />
-            </Dialog>
           </div>
           <div
             className="forgot-password"

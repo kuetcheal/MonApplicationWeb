@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const styles = {
   card: {
@@ -15,6 +22,16 @@ const styles = {
 };
 
 const Inscription = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Card style={styles.card}>
       <div className="header">
@@ -69,10 +86,35 @@ const Inscription = () => {
           </div>
           <div className="connexion">
             <div className="connecter">
-              <button className="connecter-button">
-                {" "}
-                Passer à l'étape suivante{" "}
+              <button
+                variant="outlined"
+                onClick={handleClickOpen}
+                className="forget__button"
+              >
+                Passer à l'étape suivante
               </button>
+              <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    To subscribe to this website, please enter your email
+                    address here. We will send updates occasionally.
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button onClick={handleClose}>Subscribe</Button>
+                </DialogActions>
+              </Dialog>
             </div>{" "}
           </div>
           <div className="forgot-password">
