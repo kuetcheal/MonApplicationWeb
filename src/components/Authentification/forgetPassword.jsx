@@ -94,11 +94,15 @@ const Inscription = () => {
                 Passer à l'étape suivante
               </button>
               <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle
+                  style={{ color: "rgb(224, 12, 139)", textAlign: "center" }}
+                >
+                  Mot de passe oublié
+                </DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    To subscribe to this website, please enter your email
-                    address here. We will send updates occasionally.
+                    Vous y êtes presque, pour modifier votre mot de passe
+                    veuillez consulter vos mails pour poursuivre la procédure.
                   </DialogContentText>
                   <TextField
                     autoFocus
@@ -131,14 +135,14 @@ const Inscription = () => {
           />
         </div>
       </div>
-      <div className="confidentialites">
-        <div className="item">
+      <div className="confidentialitées">
+        <div className="itemes">
           <Link to="/#">@Jenee</Link>
           <Link to="/#">Contact</Link>
           <Link to="/#">Confidentialité</Link>
           <Link to="/#">CGU</Link>
         </div>
-        <div className="outil">
+        <div className="outilité">
           <Link to="/#">
             <FacebookIcon />
           </Link>

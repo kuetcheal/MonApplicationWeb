@@ -51,7 +51,7 @@ color: whitesmoke;
   .main{
     display: flex;
   }
-  .box{
+  .boxe{
     display: flex;
     gap: 25px;
     flex-direction: column;
@@ -59,7 +59,7 @@ color: whitesmoke;
     margin-left: 100px;
   }
 
-  .input-container {
+  .input-containere {
     display: flex;
     align-items: center;
     flex-grow: 1;
@@ -84,5 +84,62 @@ color: whitesmoke;
 .forgot-password:hover {
   color: rgb(224, 12, 139);
 }
+.formulaire{
+  gap: "20px"
+}
+
+.sites img {
+  height: 400px;
+  width: 650px;
+  margin-left: 120px;
+  transition: transform 0.3s ease-in-out; 
+  cursor: pointer;
+}
+
+.sites img:hover {
+  transform: scale(1.1); /* Grossissement de l'image lorsqu'elle est survolée */
+}
+
+
+.confidentialites{
+  display: flex;
+  justify-content: space-between;
+ bottom: 20px;
+  position: relative;
+  top: -100px;
+}
+.class{
+  display: flex;
+  gap: 120px;
+  font-size: 25px;
+  margin-left: 20px;
+  position: relative;
+  top: -60px;
+}
+.class a {
+  text-decoration: none; 
+  color: whitesmoke;
+  font-size: 20px;
+}
+.outil{
+  display: flex;
+  gap: 60px;
+  right: 20px;
+  position: relative;
+  top: -70px;
+}
+.outil svg {
+  width: 30px; 
+  height: 30px; 
+  color: whitesmoke;
+}
+
+.outil svg:hover{
+  color: rgb(224, 12, 139);
+ }
+
+ .class a:hover{
+    color: rgb(224, 12, 139);
+   }
 
   

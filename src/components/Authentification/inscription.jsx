@@ -19,11 +19,12 @@ import TextField from "@mui/material/TextField";
 const styles = {
   card: {
     backgroundColor: "black",
-    height: "660px",
+    height: "656px",
     width: "100%",
   },
 };
 
+//Ouverture de la popup
 const Inscription = () => {
   const [open, setOpen] = React.useState(false);
 
@@ -79,7 +80,7 @@ const Inscription = () => {
               vous avez déjà un compte ?
               <Link
                 className="suppression__link"
-                to="/navbar"
+                to="/connexion"
                 style={{ marginLeft: "2px" }}
               >
                 <span>Connectez-vous</span>{" "}
@@ -87,12 +88,10 @@ const Inscription = () => {
             </Typography>
           </div>
           <div className="input-container">
-            <input
-              className="edit"
-              placeholder="username ou email"
-              type="text"
-              style={{ width: "450px" }}
-            />
+            <input className="edit" placeholder="username " type="text" />
+          </div>
+          <div className="input-container">
+            <input className="edit" placeholder=" email" type="text" />
           </div>
           <div className="input-container">
             <input
@@ -101,12 +100,13 @@ const Inscription = () => {
               type="password"
             />
           </div>
-          <div className="connexion">
+          <div className={`connexion ${open ? "with-opacity" : ""}`}>
             <div className="connecter">
               <button
                 variant="outlined"
                 onClick={handleClickOpen}
                 className="connecter-button"
+                style={{ width: "475px", height: "35px" }}
               >
                 S'inscrire
               </button>
@@ -134,7 +134,7 @@ const Inscription = () => {
               </Dialog>
             </div>{" "}
           </div>
-          <div
+          {/* <div
             className="forgot-password"
             style={{ color: "white", listStyleType: "none" }}
           >
@@ -146,6 +146,18 @@ const Inscription = () => {
               <Link className="forgot__link" to="/forgetPassword">
                 {" "}
                 <span> Mot de passe oublié ?</span>{" "}
+              </Link>
+            </Typography>
+          </div> */}
+          <div className="inscription" style={{ marginLeft: "10px" }}>
+            <Typography variant="h5" component="h1" style={{ color: "white" }}>
+              Oups un problème ?
+              <Link
+                to="/forgetPassword"
+                className="suppression__link"
+                style={{ marginLeft: "9px" }}
+              >
+                <span>Mot de passe oublié</span>{" "}
               </Link>
             </Typography>
           </div>
