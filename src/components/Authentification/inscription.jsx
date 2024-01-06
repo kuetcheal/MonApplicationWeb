@@ -33,57 +33,19 @@ const Inscription = () => {
     email: "",
     password: "",
   });
-  
+
+  //Methode pour l'insertion d'un utilisateur
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-     
-    axios.post('http://localhost:3001/admins', admins)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-    //     JSON.stringify(admins), 
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     }
-    //   );
-  
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error('Erreur lors de la connexion :', error);
-    // }
-
-    
-
-
-    // try {
-    //   const formData = new FormData();
-    //   formData.append('name', admins.name);
-    //   formData.append('email', admins.email);
-    //   formData.append('password', admins.password);
-  
-    //   const response = await axios.post(
-    //     'http://localhost:8000/api/adminss',
-    //     formData,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //       },
-    //     }
-    //   );
-  
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error('Erreur lors de la connexion :', error);
-    // }
+    axios
+      .post("http://localhost:3001/admins", admins)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
-
- 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,20 +55,19 @@ const Inscription = () => {
     setOpen(false);
   };
 
-   useEffect(() => {
-     
-      axios.get('http://localhost:3001/')
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-     
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
-  //   fetchData();
+    //   fetchData();
 
-  //   console.log("bonjour");
+    //   console.log("bonjour");
   }, []);
 
   // const handleData = async () => {
@@ -119,7 +80,7 @@ const Inscription = () => {
   //   } catch (error) {
   //     console.error("Erreur lors de la connexion :", error);
   //   }
-    
+
   // };
 
   return (
@@ -173,15 +134,13 @@ const Inscription = () => {
               </Link>
             </Typography>
           </div>
-           <form onSubmit={handleSubmit}> 
+          <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input
                 className="edit"
                 placeholder="username "
                 type="text"
-                onChange={e => setAdmins({...admins, name: e.target.value})}
-                // value={admins.name}
-                // onChange={handleChange}
+                onChange={(e) => setAdmins({ ...admins, name: e.target.value })} 
               />
             </div>
             <div className="input-container">
@@ -189,9 +148,9 @@ const Inscription = () => {
                 className="edit"
                 placeholder=" email"
                 type="text"
-                onChange={e => setAdmins({...admins, email: e.target.value})}
-                // value={admins.email}
-                // onChange={handleChange}
+                onChange={(e) =>
+                  setAdmins({ ...admins, email: e.target.value })
+                }
               />
             </div>
             <div className="input-container">
@@ -199,14 +158,15 @@ const Inscription = () => {
                 className="edit"
                 placeholder="Mot de passe"
                 type="password"
-                onChange={e => setAdmins({...admins, password: e.target.value})}
+                onChange={(e) =>
+                  setAdmins({ ...admins, password: e.target.value })
+                }
                 // value={admins.password}
                 // onChange={handleChange}
               />
             </div>
             <div>
               <div className={`connexion ${open ? "with-opacity" : ""}`}>
-              
                 <button
                   variant="outlined"
                   // onClick={handleClickOpen}
@@ -217,30 +177,30 @@ const Inscription = () => {
                   S'inscrire
                 </button>
                 <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Vous y êtes presque, pour confirmer votre inscription
-                    veuillez consulter votre email et entrer le code reçu.
-                  </DialogContentText>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="confirmation code"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Cancel</Button>
-                  <Button onClick={handleClose}>Subscribe</Button>
-                </DialogActions>
-              </Dialog>
+                  <DialogTitle>Subscribe</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Vous y êtes presque, pour confirmer votre inscription
+                      veuillez consulter votre email et entrer le code reçu.
+                    </DialogContentText>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="confirmation code"
+                      type="email"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Subscribe</Button>
+                  </DialogActions>
+                </Dialog>
               </div>{" "}
             </div>
-          </form> 
+          </form>
           <div className="inscription" style={{ marginLeft: "10px" }}>
             <Typography variant="h5" component="h1" style={{ color: "white" }}>
               Oups un problème ?

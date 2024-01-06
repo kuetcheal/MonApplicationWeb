@@ -3,7 +3,7 @@ import { Typography, Card } from "@mui/material";
 import "./connexion.css";
 // import Navbar from './Navbar'
 // import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+ import axios from "axios";
 // import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -22,6 +22,22 @@ const styles = {
 };
 
 const Connexion = () => {
+
+
+
+  useEffect(() => {
+    const adminId = 1; // Remplacez par l'ID de l'administrateur que vous souhaitez récupérer
+  
+    axios.get(`http://localhost:3001/admins/${adminId}`)
+      .then((response) => {
+        const adminData = response.data;
+        // Comparer les identifiants, vérifier la connexion, etc.
+        console.log(adminData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   // const navigate = useNavigate();
   // const [passe, setPasse] = useState("");
   // const [email, setEmail] = useState("");
