@@ -145,7 +145,7 @@ const Connexion = () => {
           <div className="inscription">
             <Typography variant="h5" component="h1" style={{ color: "white" }}>
               vous n'avez pas un compte ?
-              <Link className="suppression__link" to="/inscription">
+              <Link className="suppression__link" to="/">
                 <span>inscrivez-vous</span>{" "}
               </Link>
             </Typography>

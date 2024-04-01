@@ -27,6 +27,7 @@ const styles = {
 
 //Ouverture de la popup
 const Inscription = () => {
+  
   const [open, setOpen] = React.useState(false);
   const [admins, setAdmins] = useState({
     name: "",
@@ -34,27 +35,64 @@ const Inscription = () => {
     password: "",
   });
 
-  //Methode pour l'insertion d'un utilisateur
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:3001/admins", admins)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+   const [passwordError, setPasswordError] = useState("");
 
+
+  //Methode pour l'insertion d'un utilisateur
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post("http://localhost:3001/admins", admins)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+
+
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+  
+    if (
+      admins.password.length < 8 ||
+      !/\d/.test(admins.password) ||
+      !/[a-zA-Z]/.test(admins.password)
+    ) {
+      setPasswordError(
+        "Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres."
+      );
+      return; 
+    }
+
+
+
+    try {
+    const res = await axios.post("http://localhost:3001/admins", admins);
+    console.log(res);
+    // ... (redirection ou autre action si l'inscription a réussi)
+  } catch (err) {
+    if (err.response && err.response.status === 400 && err.response.data.error === 'Un administrateur avec cet email existe déjà.') {
+      // Afficher un message d'erreur à l'utilisateur (exemple avec une boîte de dialogue)
+      alert("L'email saisi existe déjà. Veuillez saisir un autre email.");
+    } else {
+      console.error(err);
+      // Gérer d'autres types d'erreurs
+    }
+  }
+  };
+  
+
+  //ouverture et fermeture de la popup
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
 
+  //Methode pour afficher les utilisateurs
   useEffect(() => {
     axios
       .get("http://localhost:3001/")
@@ -64,10 +102,6 @@ const Inscription = () => {
       .catch((err) => {
         console.error(err);
       });
-
-    //   fetchData();
-
-    //   console.log("bonjour");
   }, []);
 
   // const handleData = async () => {
@@ -147,29 +181,30 @@ const Inscription = () => {
               <input
                 className="edit"
                 placeholder=" email"
-                type="text"
+                type="email"
                 onChange={(e) =>
                   setAdmins({ ...admins, email: e.target.value })
                 }
               />
             </div>
             <div className="input-container">
-              <input
+              <div className="input-container">
+                <input
                 className="edit"
                 placeholder="Mot de passe"
                 type="password"
                 onChange={(e) =>
                   setAdmins({ ...admins, password: e.target.value })
                 }
-                // value={admins.password}
-                // onChange={handleChange}
-              />
+                 />
+              </div>
+                {passwordError && <p className="error">{passwordError}</p>}
             </div>
             <div>
               <div className={`connexion ${open ? "with-opacity" : ""}`}>
                 <button
                   variant="outlined"
-                  // onClick={handleClickOpen}
+                  onClick={handleClickOpen}
                   // onClick={() => handleData()}
                   className="connecter-button"
                   style={{ width: "475px", height: "35px" }}
