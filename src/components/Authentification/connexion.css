@@ -17,10 +17,12 @@ span{
 .tittle {
     margin-left: 400px;
 }
+
 .connection{
  margin-left: 65px; 
 color: whitesmoke;
 }
+
 .slogan{
     color: rgb(224, 12, 139);
     font-size: 20px;
@@ -106,7 +108,7 @@ color: whitesmoke;
   justify-content: space-between;
  bottom: 20px;
   position: relative;
-  top: -100px;
+  top: -70px;
 }
 .class{
   display: flex;

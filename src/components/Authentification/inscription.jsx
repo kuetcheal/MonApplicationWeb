@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import {
   Typography,
   Card,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  DialogContentText,
+  // Dialog,
+  // DialogActions,
+  // DialogContent,
+  // DialogTitle,
+  // DialogContentText,
 } from "@mui/material";
 import "./inscription.css";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+//import Button from "@mui/material/Button";
+//import TextField from "@mui/material/TextField";
 import axios from "axios";
+import Confirmation from "./confirmation.jsx";
 
 const styles = {
   card: {
@@ -25,10 +26,9 @@ const styles = {
   },
 };
 
-//Ouverture de la popup
+
 const Inscription = () => {
   
-  const [open, setOpen] = React.useState(false);
   const [admins, setAdmins] = useState({
     name: "",
     email: "",
@@ -36,86 +36,40 @@ const Inscription = () => {
   });
 
    const [passwordError, setPasswordError] = useState("");
+   const [showConfirmation, setShowConfirmation] = useState(false);
 
-
-  //Methode pour l'insertion d'un utilisateur
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post("http://localhost:3001/admins", admins)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-
+ 
    const handleSubmit = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
   
-    if (
-      admins.password.length < 8 ||
-      !/\d/.test(admins.password) ||
-      !/[a-zA-Z]/.test(admins.password)
-    ) {
+    if (admins.password.length < 8 || !/\d/.test(admins.password) || !/[a-zA-Z]/.test(admins.password)){
       setPasswordError(
         "Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres."
       );
       return; 
     }
-
-
-
+  
     try {
-    const res = await axios.post("http://localhost:3001/admins", admins);
-    console.log(res);
-    // ... (redirection ou autre action si l'inscription a réussi)
-  } catch (err) {
-    if (err.response && err.response.status === 400 && err.response.data.error === 'Un administrateur avec cet email existe déjà.') {
-      // Afficher un message d'erreur à l'utilisateur (exemple avec une boîte de dialogue)
-      alert("L'email saisi existe déjà. Veuillez saisir un autre email.");
-    } else {
-      console.error(err);
-      // Gérer d'autres types d'erreurs
+      const res = await axios.post("http://localhost:3001/admins", admins);
+      console.log(res);
+
+    if (res.status === 200) {
+      setShowConfirmation(true); // Afficher la popup uniquement si l'inscription est réussie
     }
-  }
+    } catch (err) {
+      if (err.response && err.response.status === 400 && err.response.data.error === 'Un administrateur avec cet email existe déjà.') {
+        alert("L'email saisi existe déjà. Veuillez saisir un autre email.");
+        setShowConfirmation(false);
+      } else {
+        console.error(err);
+      }
+    }
   };
   
-
-  //ouverture et fermeture de la popup
   const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+    setShowConfirmation(true);
   };
 
-  //Methode pour afficher les utilisateurs
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  // const handleData = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       `http://localhost:8000/api/adminss`,
-  //       admins
-  //     );
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Erreur lors de la connexion :", error);
-  //   }
-
-  // };
 
   return (
     <Card style={styles.card}>
@@ -201,7 +155,8 @@ const Inscription = () => {
                 {passwordError && <p className="error">{passwordError}</p>}
             </div>
             <div>
-              <div className={`connexion ${open ? "with-opacity" : ""}`}>
+              {/* <div className={`connexion ${open ? "with-opacity" : ""}`}> */}
+              <div className="contenaire">
                 <button
                   variant="outlined"
                   onClick={handleClickOpen}
@@ -211,31 +166,11 @@ const Inscription = () => {
                 >
                   S'inscrire
                 </button>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Subscribe</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Vous y êtes presque, pour confirmer votre inscription
-                      veuillez consulter votre email et entrer le code reçu.
-                    </DialogContentText>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      label="confirmation code"
-                      type="email"
-                      fullWidth
-                      variant="standard"
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
-                  </DialogActions>
-                </Dialog>
+               
               </div>{" "}
             </div>
           </form>
+          <Confirmation open={showConfirmation} handleClose={() => setShowConfirmation(false)} />
           <div className="inscription" style={{ marginLeft: "10px" }}>
             <Typography variant="h5" component="h1" style={{ color: "white" }}>
               Oups un problème ?

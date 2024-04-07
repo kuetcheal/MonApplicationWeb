@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Typography, Card } from "@mui/material";
-import "./forgetPassword.css";
+import "./alertPassword.css";
+import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 
 const styles = {
   card: {
@@ -16,9 +16,8 @@ const styles = {
 };
 
 const Inscription = () => {
+  //const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-
 
   const handleSubmit=  async (e) =>{
     e.preventDefault();
@@ -26,13 +25,14 @@ const Inscription = () => {
     try {
       const res = await axios.post("http://localhost:3001/error", { email });
       console.log(res.data); // Affiche la réponse du serveur dans la console
-          navigate("/alertPassword");
+      // Afficher une notification ou un message de succès à l'utilisateur
     } catch (error) {
       console.error("Erreur lors de l'envoi de la demande:", error);
       // Afficher une notification ou un message d'erreur à l'utilisateur
-      navigate("/alertPassword");
     }
   } 
+
+  
 
   return (
     <Card style={styles.card}>
@@ -79,28 +79,22 @@ const Inscription = () => {
             </Typography>
           </div>
           <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <input className="edit-input4" placeholder=" email" type="text" style={{ width: "450px" }}   
-              value={email}
-              onChange={(e) =>setEmail(e.target.value)}
-            />
-          </div>
-          <div className="connexion"> <br />
+            <div className="aler">
+                <p> Si votre email est enregistré dans notre 
+                   de données, vous allez recevoir un mail 
+                    de modification du mot de passe. 
+                 Vérifier votre boîte email.</p>
+            </div><br/><br/>
+           <div className="connexion"> 
             <div className="connecter">
-              <button className="forget__button"  variant="outlined" onClick={handleSubmit} > Passer à l'étape suivante  </button>                                        
+                <p>Vous n'avez pas reçu d'email</p>
+              <button className="forget__button"  variant="outlined" > Renvoyer  </button>                                        
             </div>{" "}
           </div>
           </form>
-          <div className="forgot-password"  style={{ marginLeft: "35px" }}>
+          <div className="forgot-password">
             <Typography variant="h5" component="h1" style={{ color: "white" }}>
-             Oups !!! je me rappelles
-              <Link
-                to="/connexion"
-                className="suppression__link"
-                 style={{ marginLeft: "9px" }}
-              >
-                <span>Se connecter</span>{" "}
-              </Link>
+              Mot de passe oublié ?
             </Typography>
           </div>
         </div>

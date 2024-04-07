@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Connexion from "./components/Authentification/connexion";
 import ErrorPassword from "./components/Authentification/errorPassword";
+import AlertPassword from "./components/Authentification/alertPassword";
 import Popup1 from "./components/Authentification/popup1";
 import Inscription from "./components/Authentification/inscription";
 import ForgetPassword from "./components/Authentification/forgetPassword";
@@ -23,6 +24,7 @@ const App = () => {
       <Route path="/popup1" element={<Popup1/>} />
       <Route path="/fluxod" element={<Fluxod/>} />
       <Route path="/errorPassword" element={<ErrorPassword/>} />
+      <Route path="/alertPassword" element={<AlertPassword/>} />
       </Routes>
     </Router> 
   );

@@ -13,29 +13,27 @@ span{
 }
 .connection{
     margin-left: 65px; 
-    color: whitesmoke;
+    animation: changeColor 2s infinite alternate; /* Animation alternant les couleurs */
+    color: white; /* Couleur de départ */
+    opacity: 0; /* Démarre avec une opacité à zéro */
 }
+
+@keyframes changeColor {
+  50% {
+    color: white; /* Couleur de départ et couleur de fin */
+    opacity: 0; /* Texte invisible */
+  }
+  50% {
+    color: rgb(224, 12, 139); /* Couleur à mi-chemin */
+    opacity: 1; /* Texte visible */
+  }
+}
+
+
 .slogan{
     color: rgb(224, 12, 139);
     font-size: 20px;
-    /* margin-bottom: 90px; */
     margin-left: 250px;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.connection {
-  animation: fadeInOut 2s infinite; 
 }
 
 .connecter-button{
@@ -120,7 +118,7 @@ span{
   justify-content: space-between;
  bottom: 20px;
   position: relative;
-  top: -100px;
+  top: -70px;
 }
 .items{
   display: flex;
