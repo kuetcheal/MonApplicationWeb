@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Card,
-  // Dialog,
-  // DialogActions,
-  // DialogContent,
-  // DialogTitle,
-  // DialogContentText,
-} from "@mui/material";
+import { Typography, Card,} from "@mui/material";
 import "./inscription.css";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-//import Button from "@mui/material/Button";
-//import TextField from "@mui/material/TextField";
 import axios from "axios";
+import Swal from "sweetalert2";
 import Confirmation from "./confirmation.jsx";
 
 const styles = {
@@ -43,9 +34,11 @@ const Inscription = () => {
     e.preventDefault();
   
     if (admins.password.length < 8 || !/\d/.test(admins.password) || !/[a-zA-Z]/.test(admins.password)){
-      setPasswordError(
-        "Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Oups !!!",
+        text: "Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres.",
+    });
       return; 
     }
   
@@ -58,7 +51,12 @@ const Inscription = () => {
     }
     } catch (err) {
       if (err.response && err.response.status === 400 && err.response.data.error === 'Un administrateur avec cet email existe déjà.') {
-        alert("L'email saisi existe déjà. Veuillez saisir un autre email.");
+        //alert("L'email saisi existe déjà. Veuillez saisir un autre email.");
+        Swal.fire({
+          icon: "error",
+          title: "Oups !!!",
+          text: "L'email saisi a déjà un compte. Veuillez saisir un autre email.",
+        });
         setShowConfirmation(false);
       } else {
         console.error(err);
@@ -67,7 +65,7 @@ const Inscription = () => {
   };
   
   const handleClickOpen = () => {
-    setShowConfirmation(true);
+    setShowConfirmation(false);
   };
 
 
@@ -125,7 +123,7 @@ const Inscription = () => {
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input
-                className="edit"
+                className="edit" required
                 placeholder="username "
                 type="text"
                 onChange={(e) => setAdmins({ ...admins, name: e.target.value })} 
@@ -133,7 +131,7 @@ const Inscription = () => {
             </div>
             <div className="input-container">
               <input
-                className="edit"
+                className="edit"  required
                 placeholder=" email"
                 type="email"
                 onChange={(e) =>
@@ -144,7 +142,7 @@ const Inscription = () => {
             <div className="input-container">
               <div className="input-container">
                 <input
-                className="edit"
+                className="edit"  required
                 placeholder="Mot de passe"
                 type="password"
                 onChange={(e) =>
@@ -159,7 +157,7 @@ const Inscription = () => {
               <div className="contenaire">
                 <button
                   variant="outlined"
-                  onClick={handleClickOpen}
+                  
                   // onClick={() => handleData()}
                   className="connecter-button"
                   style={{ width: "475px", height: "35px" }}

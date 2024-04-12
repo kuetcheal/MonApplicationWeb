@@ -80,14 +80,14 @@ const Inscription = () => {
           </div>
           <form onSubmit={handleSubmit}>
           <div className="input-container">
-            <input className="edit-input4" placeholder=" email" type="text" style={{ width: "450px" }}   
+            <input className="edit-input4" placeholder=" email" type="text" style={{ width: "450px" }} required  
               value={email}
               onChange={(e) =>setEmail(e.target.value)}
             />
           </div>
           <div className="connexion"> <br />
             <div className="connecter">
-              <button className="forget__button"  variant="outlined" onClick={handleSubmit} > Passer à l'étape suivante  </button>                                        
+              <button className="forget__button"  variant="outlined" > Passer à l'étape suivante  </button>                                        
             </div>{" "}
           </div>
           </form>

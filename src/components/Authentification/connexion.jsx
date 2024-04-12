@@ -99,6 +99,7 @@ const handleSubmit = async (e) =>{
                   className="edit-input4"
                   placeholder="username ou email"
                   type="text"
+                  required
                   value={email}
                   onChange={(e) =>setEmail(e.target.value)}
                 />
@@ -108,6 +109,7 @@ const handleSubmit = async (e) =>{
                   className="edit-input4"
                   placeholder="Mot de passe"
                   type="password"
+                  required
                   value={password}
                   onChange={(e) =>setPassword(e.target.value)}
                 />

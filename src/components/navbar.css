@@ -5,10 +5,17 @@
 .infos{
     display: flex;
 }
-.logo{
+.logos{
     height: 100px;
     width: 200px;
     color: rgb(255, 154, 98);
+}
+.logos img{
+  color: rgb(255, 154, 98);
+  width: 110px;
+  height: 120px;
+  margin-top: 10px;
+  margin-left: 25px;
 }
 span{
     color: rgb(255, 154, 98); 
@@ -51,20 +58,21 @@ li a{
    cursor: pointer;
 }
 
-.blog2{
+.blog-event {
     display: flex;
     gap: 70px;
     align-items: center;
-    /* margin-top: 40px; */
-    /* justify-content: space-between; */
+   flex-direction: row;
+    
 }
 .second-nav{
     display: flex;
     text-align: center;
     justify-content: space-between; 
+    margin-left: 70px;
 }
-.nouveaute{
-    display: flex !important;
+.nouveau {
+    
     text-align: center;
     justify-content: space-between;
     color: white; 
@@ -76,26 +84,26 @@ li a{
     margin-left: 20px; 
 }
 
-.titlle2{
+.titre2 {
     color: rgb(224, 12, 139);
     margin-left: 32px;
 }
 
-.boxe {
+.miracle {
     display: flex;
     align-items: center;
-    position: relative;
-    margin-left: 95px;
+    margin-left: 115px;
+    flex-direction: row;
   }
   
-  .input-containers {
+   .input-containers {
     display: flex;
     align-items: center;
     flex-grow: 1;
-  }
+  } 
   
-  .edite-input4 {
-    padding-right: 40px; /* Ajustez la valeur selon vos besoins */
+  .edi-input {
+    padding-right: 40px; 
     background-color: black;
     height: 35px;
     width: 250px;
@@ -107,15 +115,15 @@ li a{
   }
   
   .icon-containers {
-    position: absolute;
-    right: 10px; /* Ajustez la valeur selon vos besoins */
+    position: relative;
+    right: 130px; 
     display: flex;
     align-items: center;
-  }
+  } 
 
-  .events{
+  /* .events{
     margin-bottom: 40px;
-  }
+  } */
 
 /* PARTIE MAIN */
  .main{

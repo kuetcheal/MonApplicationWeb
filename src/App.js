@@ -10,6 +10,8 @@ import Navbar from "./components/navbar"; // Importez correctement votre composa
 import Videos from "./components/videos";
 import Videos1 from "./components/videos1";
 import Fluxod from "./components/fluxod";
+import NotFoundPage from "./components/NotFoundPage";
+import Accueil from "./components/Admins/Accueil";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
       <Route path="/fluxod" element={<Fluxod/>} />
       <Route path="/errorPassword" element={<ErrorPassword/>} />
       <Route path="/alertPassword" element={<AlertPassword/>} />
+      <Route path="/Accueil" element={<Accueil/>} />
+      <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router> 
   );

@@ -13,9 +13,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import SearchIcon from "@mui/icons-material/Search";
 import InfoIcon from "@mui/icons-material/Info";
 import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
-//import IconButton from "@mui/material/IconButton";
 
-function Navbar() {
+const Navbar= () => {
   //clique des liens consécutives
   const [activeLink, setActiveLink] = useState(0);
   const handleLinkClick = (index) => {
@@ -55,18 +54,8 @@ function Navbar() {
     <Card style={{ backgroundColor: "black", height: "100%", width: "100%" }}>
       <div className="blogs">
         <div className="infos">
-          <div className="logo">
-            <img
-              src={process.env.PUBLIC_URL + "/carte_afrique.png"}
-              alt="Mon image"
-              style={{
-                color: "rgb(255, 154, 98)",
-                width: "110px",
-                height: "120px",
-                marginTop: "20px",
-                marginLeft: "25px",
-              }}
-            />
+          <div className="logos">
+            <img  src={process.env.PUBLIC_URL + "/carte_afrique.png"} alt="Mon image" />  
           </div>
           <div className="tittle1" style={{ color: "white" }}>
             <Typography variant="h4" component="h2">
@@ -125,15 +114,12 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="blog2">
-        <div className="titlle2">
+      <div className="bloc-event" style={{ display: "flex", gap: "40px", alignItems: "center" }}>
+        <div className="titre2">
           <h1>Mes Events</h1>
         </div>
-        <div
-          className="second-nav"
-          style={{ display: "flex", marginLeft: "100px" }}
-        >
-          <ul className="nouveaute" style={{ display: "flex" }}>
+        <div className="second-nav"  >      
+          <ul className="nouveau" style={{ display: "flex" }}>
             <li>
               <a href="#">Nouveautés</a>
             </li>
@@ -146,10 +132,10 @@ function Navbar() {
           </ul>
         </div>
 
-        <div className="boxe">
+        <div className="miracle">
           <div className="input-containers">
             <input
-              className="edite-input4"
+              className="edi-input"
               placeholder="Rechercher..."
               type="text"
               value={texteRecherche}
@@ -160,23 +146,12 @@ function Navbar() {
             <Divider
               orientation="vertical"
               flexItem
-              sx={{
-                backgroundColor: "white",
-                width: "1px",
-                height: "58px",
-                marginLeft: "40px",
-              }}
-            />
-            <IconButton
-              style={{
-                color: "rgb(224, 12, 139)",
-                fontSize: "16px",
-                marginLeft: "20px",
-              }}
-            >
-              <SearchIcon />
-            </IconButton>
+              sx={{ backgroundColor: "white",  width: "1px", height: "58px",  marginLeft: "40px", }}  />
+            <IconButton />
+            <SearchIcon style={{  color: "rgb(224, 12, 139)", fontSize: "16px",  marginLeft: "20px",}}/>
+            <IconButton/>
           </div>
+          
         </div>
       </div>
 
