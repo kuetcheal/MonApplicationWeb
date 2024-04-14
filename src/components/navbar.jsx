@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Typography, Divider, Box, IconButton, Card } from "@mui/material";
 import "./navbar.css";
 import Videos from "./videos";
+import Setting from './settings/setting'
+import {  Dialog } from '@mui/material'
 import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+//import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -12,7 +14,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LanguageIcon from "@mui/icons-material/Language";
 import SearchIcon from "@mui/icons-material/Search";
 import InfoIcon from "@mui/icons-material/Info";
-import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import { ImageList, ImageListItem, ImageListItemBar, Avatar } from "@mui/material";
 
 const Navbar= () => {
   //clique des liens consécutives
@@ -26,6 +28,18 @@ const Navbar= () => {
   const handleClick = () => {
     setState(!state);
   };
+
+  //ouverture et fermeture popup setting
+  const [open, setOpen] = React.useState(false)
+
+  const handleOpen = () => {
+      setOpen(true)
+  }
+
+  const handleClose = () => {
+      setOpen(false)
+  }
+
 
   //Gestion de tri des éléments
   const [texteRecherche, setTexteRecherche] = useState("");
@@ -109,12 +123,28 @@ const Navbar= () => {
         <div className="outiles">
           <NotificationImportantIcon style={{ marginRight: "14px" }} />
           <AddToPhotosIcon style={{ marginRight: "14px" }} />
-          <AccountCircleIcon style={{ marginRight: "14px" }} />
+          {/* <AccountCircleIcon style={{ marginRight: "14px" }} /> */}
           <LanguageIcon />
         </div>
+        <div className="settings" style={{ marginTop: "40px", marginLeft: "40px" }}>
+          <IconButton
+              color="inherit"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              
+            >
+              <Avatar sx={{ width: 42, height: 42, }}  onClick={handleOpen}>
+                
+              </Avatar>
+            </IconButton>
+            <Dialog open={open} onClose={handleClose}>
+                        <Setting handleClose={handleClose} />
+                    </Dialog>
+          </div>
       </div>
 
-      <div className="bloc-event" style={{ display: "flex", gap: "40px", alignItems: "center" }}>
+      <div className="bloc-event" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <div className="titre2">
           <h1>Mes Events</h1>
         </div>
@@ -150,8 +180,7 @@ const Navbar= () => {
             <IconButton />
             <SearchIcon style={{  color: "rgb(224, 12, 139)", fontSize: "16px",  marginLeft: "20px",}}/>
             <IconButton/>
-          </div>
-          
+          </div> 
         </div>
       </div>
 

@@ -12,43 +12,43 @@ import "./popup1.css";
 
 const Confirmation = ({ open, handleClose }) => { 
 
-  const [confirmationCode, setConfirmationCode] = useState(""); // Ajoutez un état pour stocker le code de confirmation saisi par l'utilisateur
+  // const [confirmationCode, setConfirmationCode] = useState(""); 
 
-  // Fonction pour gérer le changement de valeur du champ de texte du code de confirmation
-  const handleConfirmationCodeChange = (e) => {
-    setConfirmationCode(e.target.value);
-  };
+ 
+  // const handleConfirmationCodeChange = (e) => {
+  //   setConfirmationCode(e.target.value);
+  // };
  
 
-  // Fonction pour gérer la soumission du formulaire
-  const sendConfirmationCodeToBackend = async () => {
-    try {
-      // Envoyez une requête POST au backend avec le code de confirmation
-      const response = await axios.post("http://localhost:3001/admins", { code: confirmationCode });
+  
+  // const sendConfirmationCodeToBackend = async () => {
+  //   try {
+    
+  //     const response = await axios.post("http://localhost:3001/admins", { code: confirmationCode });
       
-      // Vérifiez la réponse du backend
-      if (response.status === 200) {
+     
+  //     if (response.status === 200) {
         
-        window.location.href = "/navbar";
-        // Insérez ici le code pour insérer les informations d'inscription dans la base de données
+  //       window.location.href = "/navbar";
+       
 
        
-        alert("Inscription réussie !");
-        handleClose(); // Fermez la boîte de dialogue de confirmation
-      } else {
-        // Si la vérification échoue, affichez un message d'erreur à l'utilisateur
-        Swal.fire({
-          icon: "error",
-          title: "Oups !!!",
-          text: "Le code fourni est incorrect, veuillez vérifier encore.",
-        });
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du code de confirmation au backend :", error);
-      // Gérez les erreurs en affichant un message d'erreur à l'utilisateur
-      alert("Erreur lors de la vérification du code de confirmation. Veuillez réessayer.");
-    }
-  };
+  //       alert("Inscription réussie !");
+  //       handleClose(); 
+  //     } else {
+        
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oups !!!",
+  //         text: "Le code fourni est incorrect, veuillez vérifier encore.",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur lors de l'envoi du code de confirmation au backend :", error);
+     
+  //     alert("Erreur lors de la vérification du code de confirmation. Veuillez réessayer.");
+  //   }
+  // };
 
 
 
@@ -66,13 +66,14 @@ const Confirmation = ({ open, handleClose }) => {
             id="name" 
             type="email"     
             variant="standard"
-            value={confirmationCode} // Associez la valeur du champ de texte à l'état confirmationCode
-            onChange={handleConfirmationCodeChange}
+            // value={confirmationCode} 
+            // onChange={handleConfirmationCodeChange}
           />
         </DialogContent>
         <DialogActions>
         <Button onClick={handleClose} color="primary">Annuler</Button>
-        <Button onClick={sendConfirmationCodeToBackend} color="primary">Confirmer</Button>
+        {/* <Button onClick={sendConfirmationCodeToBackend} color="primary">Confirmer</Button> */}
+        <Button onClick={handleClose} color="primary">Confirmer</Button>
         </DialogActions>
       </Dialog>
     </div>

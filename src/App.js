@@ -12,6 +12,10 @@ import Videos1 from "./components/videos1";
 import Fluxod from "./components/fluxod";
 import NotFoundPage from "./components/NotFoundPage";
 import Accueil from "./components/Admins/Accueil";
+import Sidebar from "./components/Admins/sidebar";
+import Setting from "./components/settings/setting";
+import Supression from "./components/settings/supression";
+import Parametre from "./components/settings/parametre";
 
 const App = () => {
   return (
@@ -28,6 +32,10 @@ const App = () => {
       <Route path="/errorPassword" element={<ErrorPassword/>} />
       <Route path="/alertPassword" element={<AlertPassword/>} />
       <Route path="/Accueil" element={<Accueil/>} />
+      <Route path="/sidebar" element={<Sidebar/>} />
+      <Route path="/setting" element={<Setting/>} />
+      <Route path="/parametre" element={<Parametre/>} />
+      <Route path="/supression" element={<Supression/>} />
       <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router> 
