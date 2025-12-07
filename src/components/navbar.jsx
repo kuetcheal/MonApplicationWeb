@@ -1,47 +1,31 @@
 import React, { useState } from "react";
-import { Typography, Divider, Box, IconButton, Card } from "@mui/material";
+import { Typography, Divider, Box, IconButton, Card, Dialog, ImageList, ImageListItem, ImageListItemBar, Avatar } from "@mui/material";
 import "./navbar.css";
 import Videos from "./videos";
-import Setting from './settings/setting'
-import {  Dialog } from '@mui/material'
+import Setting from "./settings/setting";
+
 import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
-//import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LanguageIcon from "@mui/icons-material/Language";
 import SearchIcon from "@mui/icons-material/Search";
 import InfoIcon from "@mui/icons-material/Info";
-import { ImageList, ImageListItem, ImageListItemBar, Avatar } from "@mui/material";
 
-const Navbar= () => {
-  //clique des liens consécutives
+const Navbar = () => {
+  // lien actif du menu du haut
   const [activeLink, setActiveLink] = useState(0);
   const handleLinkClick = (index) => {
     setActiveLink(index);
   };
 
-  //ouventure et fermeture du chanel
-  const [state, setState] = useState(false);
-  const handleClick = () => {
-    setState(!state);
-  };
+  // popup settings
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  //ouverture et fermeture popup setting
-  const [open, setOpen] = React.useState(false)
-
-  const handleOpen = () => {
-      setOpen(true)
-  }
-
-  const handleClose = () => {
-      setOpen(false)
-  }
-
-
-  //Gestion de tri des éléments
+  // recherche d’images
   const [texteRecherche, setTexteRecherche] = useState("");
   const [imagesTriees, setImagesTriees] = useState(itemData);
 
@@ -57,6 +41,7 @@ const Navbar= () => {
     setImagesTriees(triees);
   };
 
+  // affichage des vidéos supplémentaires
   const [showAllVideo, setShowAllVideo] = useState(true);
   const toggleShowAllVideo = () => {
     setShowAllVideo(!showAllVideo);
@@ -66,22 +51,22 @@ const Navbar= () => {
 
   return (
     <Card style={{ backgroundColor: "black", height: "100%", width: "100%" }}>
+      {/* HEADER */}
       <div className="blogs">
         <div className="infos">
           <div className="logos">
-            <img  src={process.env.PUBLIC_URL + "/carte_afrique.png"} alt="Mon image" />  
+            <img src={process.env.PUBLIC_URL + "/carte_afrique.png"} alt="Mon image" />
           </div>
           <div className="tittle1" style={{ color: "white" }}>
             <Typography variant="h4" component="h2">
-              {" "}
-              AFRICA-<span>WEB</span>{" "}
+              AFRICA-<span>WEB</span>
             </Typography>
           </div>
         </div>
+
         <div className="navbars">
           <ul className="liste">
             <li>
-              {" "}
               <a
                 href="javascript:void(0)"
                 onClick={() => handleLinkClick(0)}
@@ -114,41 +99,35 @@ const Navbar= () => {
                 onClick={() => handleLinkClick(3)}
                 className={activeLink === 3 ? "active" : ""}
               >
-                {" "}
                 Nos Engagements
               </a>
             </li>
           </ul>
         </div>
+
         <div className="outiles">
           <NotificationImportantIcon style={{ marginRight: "14px" }} />
           <AddToPhotosIcon style={{ marginRight: "14px" }} />
           {/* <AccountCircleIcon style={{ marginRight: "14px" }} /> */}
           <LanguageIcon />
         </div>
+
         <div className="settings" style={{ marginTop: "40px", marginLeft: "40px" }}>
-          <IconButton
-              color="inherit"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              
-            >
-              <Avatar sx={{ width: 42, height: 42, }}  onClick={handleOpen}>
-                
-              </Avatar>
-            </IconButton>
-            <Dialog open={open} onClose={handleClose}>
-                        <Setting handleClose={handleClose} />
-                    </Dialog>
-          </div>
+          <IconButton color="inherit" aria-label="account of current user">
+            <Avatar sx={{ width: 42, height: 42 }} onClick={handleOpen} />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <Setting handleClose={handleClose} />
+          </Dialog>
+        </div>
       </div>
 
+      {/* MES EVENTS + RECHERCHE */}
       <div className="bloc-event" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <div className="titre2">
           <h1>Mes Events</h1>
         </div>
-        <div className="second-nav"  >      
+        <div className="second-nav">
           <ul className="nouveau" style={{ display: "flex" }}>
             <li>
               <a href="#">Nouveautés</a>
@@ -157,7 +136,7 @@ const Navbar= () => {
               <a href="#">Tendances</a>
             </li>
             <li>
-              <a href="#">Les plus regardés </a>
+              <a href="#">Les plus regardés</a>
             </li>
           </ul>
         </div>
@@ -176,26 +155,31 @@ const Navbar= () => {
             <Divider
               orientation="vertical"
               flexItem
-              sx={{ backgroundColor: "white",  width: "1px", height: "58px",  marginLeft: "40px", }}  />
+              sx={{ backgroundColor: "white", width: "1px", height: "58px", marginLeft: "40px" }}
+            />
             <IconButton />
-            <SearchIcon style={{  color: "rgb(224, 12, 139)", fontSize: "16px",  marginLeft: "20px",}}/>
-            <IconButton/>
-          </div> 
+            <SearchIcon
+              style={{
+                color: "rgb(224, 12, 139)",
+                fontSize: "16px",
+                marginLeft: "20px",
+              }}
+            />
+            <IconButton />
+          </div>
         </div>
       </div>
 
+      {/* MAIN : COLONNE GAUCHE + IMAGES */}
       <div className="main">
         <div className="blog3" style={{ marginTop: "5px" }}>
+          {/* Ma Bibliothèque */}
           <div className="events">
             <div className="biblio">
               <div className="icone-biblio">
-                {" "}
-                <AddToPhotosIcon
-                  style={{ marginTop: "5px", marginRight: "15px" }}
-                />
+                <AddToPhotosIcon style={{ marginTop: "5px", marginRight: "15px" }} />
               </div>
               <div className="write-biblio">
-                {" "}
                 <Typography variant="h5" component="h3">
                   Ma Bibliothèque
                 </Typography>
@@ -204,8 +188,7 @@ const Navbar= () => {
             <div className="all-events">
               <ul className="historic">
                 <li>
-                  {" "}
-                  <a href="#"> Mon historique</a>
+                  <a href="#">Mon historique</a>
                 </li>
                 <li>
                   <ThumbUpIcon />
@@ -227,74 +210,64 @@ const Navbar= () => {
               </ul>
             </div>
           </div>
+
+          {/* Channels (statique comme Web catégories) */}
           <div className="chaines">
             <Divider
               sx={{
                 backgroundColor: "white",
-                width: "300px",
-                marginBottom: "40px",
+                width: "240px",
+                marginBottom: "20px",
               }}
-            />{" "}
+            />
             <Box sx={{ mb: 2 }} />
-            <div className="list-channel">
-              <div className="channel">
-                {" "}
-                <Typography variant="h5" component="h3">
-                  {" "}
-                  Channels{" "}
-                </Typography>
-              </div>
-              <div className="next" onClick={handleClick}>
-                {state ? (
-                  <ArrowDropDownIcon
-                    style={{
-                      fontSize: 40,
-                      color: "rgb(255, 154, 98)",
-                      marginRight: "0px",
-                    }}
-                  />
-                ) : (
-                  <ArrowLeftIcon
-                    style={{ fontSize: 40, color: "rgb(255, 154, 98)" }}
-                  />
-                )}
-              </div>
-              {state && (
-                <div className="div">
-                  <ul className="menu">
-                    <li className="items">Web tv</li>
-                    <li className="items">Actu debat tv</li>
-                    <li className="items">Breaking news tv</li>
-                  </ul>
-                </div>
-              )}
+
+            <div className="channel">
+              <Typography variant="h5" component="h3">
+                Channels
+              </Typography>
             </div>
+
+            <div className="channels-menu">
+              <ul className="channels-list">
+                <li>
+                  <a href="#">Web tv</a>
+                </li>
+                <li>
+                  <a href="#">Actu debat tv</a>
+                </li>
+                <li>
+                  <a href="#">Breaking news tv</a>
+                </li>
+              </ul>
+            </div>
+
             <Box sx={{ mb: 2 }} />
             <Divider
               sx={{
                 backgroundColor: "white",
-                width: "300px",
-                marginTop: "40px",
+                width: "240px",
+                marginTop: "20px",
+                marginBottom : "5px"
               }}
             />
           </div>
+
+          {/* Web catégories */}
           <Box sx={{ mb: 0 }} />
           <div className="channel">
-            {" "}
             <Typography
               variant="h6"
               component="h3"
               style={{ color: "rgb(255, 154, 98)", marginLeft: "40px" }}
             >
-              {" "}
-              Web catégories{" "}
+              Web catégories
             </Typography>
           </div>
           <div className="categorie">
             <ul className="categorie-web">
               <li>
-                {" "}
-                <a href=""> Web comedie</a>
+                <a href="">Web comedie</a>
               </li>
               <li>
                 <a href="">Prank</a>
@@ -303,10 +276,10 @@ const Navbar= () => {
                 <a href="">Web series</a>
               </li>
               <li>
-                <a href=""> Actualités</a>
+                <a href="">Actualités</a>
               </li>
               <li>
-                <a href=""> Débats</a>
+                <a href="">Débats</a>
               </li>
               <li>
                 <a href="">Lives</a>
@@ -314,13 +287,11 @@ const Navbar= () => {
             </ul>
           </div>
         </div>
-        <div className="videos">
-          {/* <Videos/> */}
 
+        {/* LISTE D’IMAGES */}
+        <div className="videos">
           {imagesTriees.length === 0 ? (
-            <div className="empty-image-list">
-              Oups !!! Aucune image ne correspond à la recherche.
-            </div>
+            <div className="empty-image-list">Oups !!! Aucune image ne correspond à la recherche.</div>
           ) : (
             <ImageList className="customImageList">
               <ImageListItem key="Subheader" cols={4}></ImageListItem>
@@ -351,17 +322,17 @@ const Navbar= () => {
           )}
         </div>
       </div>
+
+      {/* BOUTON BAS DE PAGE */}
       <div className="button-container">
         <button onClick={toggleShowAllVideo} className="button1">
-          {showAllVideo
-            ? "Cacher les autres photos"
-            : "Afficher plus de contenus"}
+          {showAllVideo ? "Cacher les autres photos" : "Afficher plus de contenus"}
         </button>
         {showAllVideo && <Videos />}
       </div>
     </Card>
   );
-}
+};
 
 const itemData = [
   {
@@ -425,4 +396,5 @@ const itemData = [
     author: "@southside_customs",
   },
 ];
+
 export default Navbar;
