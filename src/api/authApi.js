@@ -1,18 +1,20 @@
 import httpClient from "./httpClient";
 
 export const authApi = {
-login: (email, password) => httpClient.post("/api/login", { username: email, password }),
+  login: (email, password) =>
+    httpClient.post("/api/login", { email, password }), 
 
-  // Symfony attend: nom, email, password
   register: (data) => httpClient.post("/api/register", data),
 
-  //  NEW: confirmer l'email avec code
   confirmEmail: (email, code) =>
     httpClient.post("/api/confirm", { email, code }),
 
-  //  NEW: renvoyer un code
   resendConfirmation: (email) =>
     httpClient.post("/api/resend-confirmation", { email }),
+
+  forgotPassword: (email) => httpClient.post("/api/forgot-password", { email }),
+
+  resetPassword: (token, password) => httpClient.post("/api/reset-password", { token, password }),
 
   me: () => httpClient.get("/api/me"),
 };

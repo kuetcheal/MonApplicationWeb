@@ -9,6 +9,13 @@ html, body, #root {
   background-color: black;
 }
 
+.auth-container{
+    max-width: 1310px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
 .page {
   flex: 1;
   display: flex;

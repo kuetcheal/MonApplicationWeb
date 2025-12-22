@@ -87,6 +87,7 @@ const Inscription = () => {
 
   return (
     <Card style={styles.card}>
+        <div className="auth-container">
       <div className="page">
         <div className="header">
           <div className="logo">
@@ -135,7 +136,7 @@ const Inscription = () => {
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className="input-container">
+              <div className="input-containere">
                 <input
                   className="edit"
                   required
@@ -148,7 +149,7 @@ const Inscription = () => {
                 />
               </div>
 
-              <div className="input-container">
+              <div className="input-containere">
                 <input
                   className="edit"
                   required
@@ -161,7 +162,7 @@ const Inscription = () => {
                 />
               </div>
 
-              <div className="input-container-col">
+              <div className="input-containere-col">
                 <input
                   className="edit"
                   required
@@ -182,14 +183,11 @@ const Inscription = () => {
               </div>
             </form>
 
-            {/* ✅ Confirmation : on ne navigate PAS sur close,
-                on navigue seulement quand confirmé */}
             <Confirmation
               open={showConfirmation}
+              email={admins.email}
               handleClose={() => {
                 setShowConfirmation(false);
-                // Optionnel : si annulation, on peut supprimer l'email pending
-                // localStorage.removeItem("pending_email");
               }}
               onConfirmed={() => {
                 setShowConfirmation(false);
@@ -197,6 +195,7 @@ const Inscription = () => {
                 navigate("/connexion");
               }}
             />
+
 
             <div className="inscription">
               <Typography variant="h5" component="h1" style={{ color: "white" }}>
@@ -232,6 +231,7 @@ const Inscription = () => {
             <WhatsAppIcon />
           </Link>
         </div>
+      </div>
       </div>
     </Card>
   );

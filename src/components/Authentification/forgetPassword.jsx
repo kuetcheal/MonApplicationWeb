@@ -4,13 +4,14 @@ import "./forgetPassword.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { authApi } from "../../api/authApi";
 
 const styles = {
   card: {
     backgroundColor: "black",
-    minHeight: "100vh", // ✅ plein écran
+    minHeight: "100vh",
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -18,24 +19,35 @@ const styles = {
 };
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      await axios.post("http://localhost:3001/error", { email });
+      await authApi.forgotPassword(email);
+
+      // on garde l'email pour "Renvoyer"
+      localStorage.setItem("pending_reset_email", email);
+
       navigate("/alertPassword");
-    } catch (error) {
-      console.error("Erreur lors de l'envoi de la demande:", error);
-      navigate("/alertPassword");
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message ||
+        "Impossible d'envoyer l'email. Réessaie plus tard.";
+
+      Swal.fire({ icon: "error", title: "Erreur", text: msg });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Card style={styles.card}>
-      {/* ✅ wrapper pour pousser footer en bas */}
+      <div className="auth-container">
       <div className="page">
         <div className="header">
           <div className="logo">
@@ -90,12 +102,13 @@ const ForgetPassword = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                 />
               </div>
 
               <div className="connexion">
-                <button type="submit" className="forget__button">
-                  Passer à l'étape suivante
+                <button type="submit" className="forget__button" disabled={loading}>
+                  {loading ? "Envoi..." : "Passer à l'étape suivante"}
                 </button>
               </div>
             </form>
@@ -120,7 +133,6 @@ const ForgetPassword = () => {
         </div>
       </div>
 
-      {/* ✅ footer */}
       <div className="confidentialitées">
         <div className="itemes">
           <Link to="/#">@Jenee</Link>
@@ -134,6 +146,7 @@ const ForgetPassword = () => {
           <Link to="/#"><TwitterIcon /></Link>
           <Link to="/#"><WhatsAppIcon /></Link>
         </div>
+      </div>
       </div>
     </Card>
   );

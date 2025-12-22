@@ -41,13 +41,13 @@ const Connexion = () => {
     try {
       const res = await authApi.login(email, password);
 
-      const token = res?.data?.token;
+      const token = res?.data?.token; // Lexik renvoie souvent { token: "..." }
 
       if (!token) {
         Swal.fire({
           icon: "error",
           title: "Erreur",
-          text: "Token introuvable. Vérifie la réponse /api/login.",
+          text: "Token introuvable. Vérifie la réponse backend /api/login.",
         });
         return;
       }
@@ -82,6 +82,7 @@ const Connexion = () => {
 
   return (
     <Card style={styles.card}>
+       <div className="auth-container">
       <div className="page">
         <div className="header">
           <div className="logo">
@@ -143,10 +144,7 @@ const Connexion = () => {
                   />
                 </div>
 
-                <div
-                  className="input-containere"
-                  style={{ marginTop: "15px" }}
-                >
+                <div className="input-containere" style={{ marginTop: "15px" }}>
                   <input
                     className="edit-input4"
                     placeholder="Mot de passe"
@@ -205,6 +203,7 @@ const Connexion = () => {
             <WhatsAppIcon />
           </Link>
         </div>
+      </div>
       </div>
     </Card>
   );

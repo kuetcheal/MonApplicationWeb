@@ -1,6 +1,4 @@
-/* =========================
-   GLOBAL / RESET
-========================= */
+
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -9,6 +7,14 @@ html, body, #root {
   background-color: black;
 }
 
+.auth-container{
+    max-width: 1310px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
 .page {
   flex: 1;
   display: flex;
@@ -16,9 +22,7 @@ html, body, #root {
   min-height: 0;
 }
 
-/* =========================
-   HEADER
-========================= */
+
 .header {
   display: flex;
   align-items: center;
@@ -101,12 +105,12 @@ span {
 /* =========================
    INPUTS / FORM
 ========================= */
-.input-container {
+.input-containere {
   display: flex;
   align-items: center;
 }
 
-.input-container-col {
+.input-containere-col {
   display: flex;
   flex-direction: column;
   gap: 6px;
