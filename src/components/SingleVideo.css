@@ -1,0 +1,299 @@
+.sv-page {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+}
+
+/* topbar */
+.sv-topbar {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sv-backBtn {
+  color: #fff !important;
+}
+
+.sv-brand {
+  text-align: center;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.sv-accent {
+  color: rgb(255, 154, 98);
+}
+
+.sv-allBtn {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  border-radius: 10px !important;
+  height: 40px;
+}
+
+/* layout */
+.sv-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 18px;
+  padding: 14px 18px 18px 18px;
+  align-items: start;
+}
+
+/* main area */
+.sv-main {
+  min-width: 0;
+}
+
+/* main video */
+.sv-playerCard {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sv-playerWrap {
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sv-player {
+  width: 100%;
+  height: 560px; /* ✅ un peu plus haut */
+  object-fit: cover;
+  display: block;
+}
+
+/* meta */
+.sv-meta {
+  padding-top: 10px;
+}
+
+.sv-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 10px 0 12px 0;
+}
+
+/* ✅ ligne actions */
+.sv-actionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* en responsive ça passe à la ligne */
+  padding-bottom: 8px;
+}
+
+.sv-actionBtn {
+  height: 42px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+}
+
+.sv-actionPrimary {
+  background: rgb(224, 12, 139) !important;
+}
+
+.sv-iconBtn {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+}
+
+.sv-favIcon {
+  color: rgb(224, 12, 139) !important;
+}
+
+.sv-iconBtn.isActive {
+  border-color: rgb(224, 12, 139) !important;
+  box-shadow: 0 0 0 2px rgba(224, 12, 139, 0.25) inset;
+}
+
+.sv-vDivider {
+  background: rgba(255, 255, 255, 0.18) !important;
+  margin: 0 4px !important;
+}
+
+/* RIGHT side */
+.sv-side {
+  min-width: 0;
+  border-left: 3px solid rgba(0, 255, 160, 0.35);
+  padding-left: 12px;
+}
+
+.sv-sideTitle {
+  font-weight: 700;
+  margin: 4px 0 10px 0;
+}
+
+/* limite hauteur + scroll interne à droite */
+.sv-sideScroll {
+  max-height: 650px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.sv-sideScroll::-webkit-scrollbar {
+  width: 10px;
+}
+.sv-sideScroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+}
+
+.sv-sideItem {
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* card right format */
+.sv-sideInner {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+}
+
+.sv-sideThumb {
+  height: 70px !important;
+  border-radius: 10px;
+}
+
+.sv-sideText {
+  display: grid;
+  gap: 4px;
+}
+
+.sv-sideName {
+  font-weight: 700;
+}
+
+.sv-sideSub {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+/* bottom similar */
+.sv-similar {
+  margin-top: 14px;
+  border-top: 3px solid rgba(0, 255, 160, 0.35);
+  padding-top: 10px;
+}
+
+.sv-sectionTitle {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* ✅ IMPORTANT : plus de scroll horizontal */
+.sv-similarGrid {
+  display: grid;
+  gap: 16px;
+  /* ✅ auto-fit : calcule combien de cards entrent selon largeur */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* item clic */
+.sv-gridItem {
+  cursor: pointer;
+}
+
+/* thumb format dans la grille */
+.sv-thumbGrid {
+  height: 180px !important;
+}
+
+/* mini title bar */
+.sv-miniBar {
+  padding: 10px 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
+}
+
+.sv-miniTitle {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* bouton bas */
+.sv-similarBottom {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.sv-moreBtn {
+  background: rgb(224, 12, 139) !important;
+  border-radius: 12px !important;
+  height: 46px;
+  min-width: 320px;
+  font-weight: 800 !important;
+}
+
+/* loading/error */
+.sv-center {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+}
+
+.sv-loadingText {
+  opacity: 0.8;
+}
+
+.sv-error {
+  color: #ff8a8a;
+}
+
+.sv-outlineBtn {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.30) !important;
+  border-radius: 10px !important;
+}
+
+/* responsive */
+@media (max-width: 1100px) {
+  .sv-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sv-side {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 12px;
+  }
+
+  .sv-player {
+    height: 380px;
+  }
+
+  .sv-sideScroll {
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sv-topbar {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .sv-allBtn {
+    display: none;
+  }
+
+  .sv-player {
+    height: 260px;
+  }
+
+  .sv-actionBtn {
+    width: 100%;
+  }
+}

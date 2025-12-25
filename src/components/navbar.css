@@ -1,172 +1,366 @@
-/* ================================
-   AFRICA-WEB PAGE (prefix aw-)
-   ================================ */
-
-.aw-page {
-  background-color: black !important;
+/* page */
+.awNav-page {
+  background: black !important;
   min-height: 100vh;
   width: 100%;
   border-radius: 0 !important;
+  box-shadow: none !important;
+  /* max-width: 1500px; */
+  /* ✅ empêche l’apparition de scrollbars horizontales au hover */
+  overflow-x: hidden;
 }
 
-/* MAIN layout */
-.aw-main {
-  display: flex;
-  gap: 26px;
-  padding: 10px 28px 40px 28px;
-  box-sizing: border-box;
-}
-
-/* LEFT sidebar */
-.aw-left {
-  width: 280px;
-  color: white;
-}
-
-.aw-leftBlock {
-  margin-bottom: 22px;
-}
-
-.aw-biblioHead {
+/* ---------------- HEADER ---------------- */
+.awNav-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  justify-content: space-between;
+  padding: 18px 28px;
+  gap: 24px;
 }
 
-.aw-leftIcon {
+.awNav-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 320px;
+}
+
+.awNav-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.awNav-title {
   color: white;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 20px;
 }
 
-.aw-leftTitle {
-  color: white;
+.awNav-accent {
+  color: rgb(255, 154, 98);
 }
 
-.aw-leftTitle2 {
-  color: white;
-  margin-top: 12px;
-  margin-bottom: 12px;
+/* top nav */
+.awNav-topNav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
-.aw-divider {
-  background-color: white !important;
-  opacity: 0.8;
-  margin: 14px 0 !important;
-}
-
-.aw-leftMenu {
+.awNav-topList {
+  display: flex;
+  gap: 46px;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.awNav-topLink {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 6px;
+}
+
+.awNav-topLink:hover,
+.awNav-topLinkActive {
+  color: rgb(224, 12, 139);
+}
+
+/* tools */
+.awNav-tools {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 16px;
+  color: white;
+}
+
+.awNav-avatar {
+  cursor: pointer;
+}
+
+/* ---------------- SUB HEADER ---------------- */
+.awNav-subHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 28px 4px 28px;
+}
+
+.awNav-subLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 20px; /* ✅ resserré */
+  flex-wrap: wrap;
+}
+
+.awNav-subTitle {
+  margin: 0;
+  color: rgb(224, 12, 139);
+  font-size: 44px;
+  font-weight: 700;
+}
+
+.awNav-subMenu {
+  display: flex;
+  gap: 32px; /* ✅ resserré */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.awNav-subLink {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 6px;
+}
+
+.awNav-subLink:hover {
+  color: rgb(224, 12, 139);
+}
+
+/* search */
+.awNav-searchWrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  padding: 8px 14px;
+  gap: 12px;
+  min-width: 360px;
+  max-width: 520px;
+}
+
+.awNav-searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 18px;
+  width: 100%;
+}
+
+.awNav-searchDivider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.awNav-searchIcon {
+  color: rgb(224, 12, 139);
   font-size: 18px;
 }
 
-.aw-leftMenu a {
+/* ---------------- MAIN LAYOUT ---------------- */
+.awNav-main {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* ✅ un peu plus serré */
+  gap: 14px; /* ✅ réduit l’espace gauche <-> vidéos */
+  padding: 10px 22px 30px 22px; 
+  align-items: start;
+
+  /* ✅ évite scrollbar horizontale si un zoom dépasse */
+  overflow-x: hidden;
+}
+
+/* left */
+.awNav-left {
+  min-width: 300px;
+}
+
+/* sticky “Shein-like” */
+.awNav-leftSticky {
+  position: sticky;
+  top: 18px;
+}
+
+/* left blocks */
+.awNav-leftBlock {
   color: white;
-  text-decoration: none;
+  padding-right: 8px;
 }
 
-.aw-leftMenu a:hover {
-  color: rgb(224, 12, 139);
+.awNav-leftHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 14px 0;
 }
 
-.aw-miniIcon {
-  vertical-align: middle;
-  margin-right: 6px;
+.awNav-leftTitle,
+.awNav-leftTitle2 {
+  color: white;
+  font-weight: 600;
 }
 
-.aw-pinkLink {
-  color: rgb(224, 12, 139) !important;
-  margin-left: 6px;
-}
-
-/* Smaller menus */
-.aw-leftMenuSmall {
+.awNav-leftMenu,
+.awNav-leftMenuSmall {
   list-style: none;
   padding: 0;
-  margin: 8px 0 0 0;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.awNav-leftMenuSmall {
   gap: 10px;
+}
+
+.awNav-miniIcon {
+  margin-right: 8px;
+  transform: translateY(3px);
+}
+
+.awNav-leftLink {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.awNav-leftMenuSmall .awNav-leftLink {
   font-size: 16px;
 }
 
-.aw-leftMenuSmall a {
-  color: white;
-  text-decoration: none;
-}
-
-.aw-leftMenuSmall a:hover {
+.awNav-leftLink:hover {
   color: rgb(224, 12, 139);
 }
 
-.aw-categoryTitle {
+.awNav-leftPink {
+  color: rgb(224, 12, 139);
+}
+
+.awNav-divider {
+  background: rgba(255, 255, 255, 0.45) !important;
+  margin: 15px 0 !important;
+  max-width: 220px;
+}
+
+.awNav-categoryTitle {
   color: rgb(255, 154, 98);
-  margin-bottom: 8px;
+  margin: 12px 0;
+  font-weight: 600;
 }
 
-/* CONTENT */
-.aw-content {
-  flex: 1;
+/* content */
+.awNav-content {
   min-width: 0;
+
+  /* ✅ important : ne pas créer de scrollbars internes */
+  overflow: visible;
 }
 
-/* Empty messages */
-.aw-empty {
-  font-size: 20px;
+/* empty */
+.awNav-empty {
   color: white;
+  font-size: 18px;
+  padding: 40px 20px;
   text-align: center;
-  margin-top: 100px;
 }
 
-/* VIDEO GRID */
-.aw-videoGrid {
-  width: 100%;
+/* ---------------- VIDEO GRID ---------------- */
+.awNav-videoGrid {
   margin: 0 !important;
+
+  /* ✅ MUI ImageList a parfois overflow:auto => barres au hover */
+  overflow: visible !important;
 }
 
-.aw-videoCard {
-  border-radius: 14px;
+/* carte vidéo */
+.awNav-videoCard {
+  position: relative;
+  border-radius: 10px;
+  overflow: visible; /* on autorise le scale */
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* inner = vrai “bloc” qui scale */
+.awNav-videoInner {
+  border-radius: 18px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
+  transform-origin: center;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
 }
 
-/* Voilà l’espace + bon rendu thumbnail */
-.aw-videoThumb {
+/* hover zoom sans déplacer les autres */
+.awNav-videoCard:hover {
+  z-index: 80;
+}
+
+.awNav-videoCard:hover .awNav-videoInner {
+  transform: scale(1.06);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55);
+}
+
+/* taille uniforme */
+.awNav-videoThumb {
   width: 100%;
-  height: 210px;
+  height: 230px;
   object-fit: cover;
-  background: #000;
   display: block;
 }
 
-.aw-videoBar .MuiImageListItemBar-title,
-.aw-videoBar .MuiImageListItemBar-subtitle {
-  color: #fff;
+/* barre de titre */
+.awNav-videoBar {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
 }
 
-/* Icon info */
-.aw-infoBtn {
-  color: rgba(255, 255, 255, 0.7) !important;
+.awNav-infoBtn {
+  color: rgba(255, 255, 255, 0.75) !important;
 }
 
-/* Bottom */
-.aw-bottom {
-  padding: 0 28px 30px 28px;
-  box-sizing: border-box;
+/* ---------------- BOTTOM BUTTON ---------------- */
+.awNav-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
 }
 
-.aw-button {
+.awNav-button {
   color: white;
-  height: 45px;
-  width: 320px;
+  height: 48px;
+  min-width: 320px;
   background-color: rgb(224, 12, 139);
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid rgb(224, 12, 139);
   text-align: center;
   font-size: 16px;
   cursor: pointer;
+}
+
+.awNav-button:hover {
+  filter: brightness(1.06);
+}
+
+.awNav-end {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+/* responsive */
+@media (max-width: 1100px) {
+  .awNav-main {
+    grid-template-columns: 1fr;
+  }
+  .awNav-left {
+    display: none;
+  }
+  .awNav-searchWrap {
+    min-width: 260px;
+  }
 }
