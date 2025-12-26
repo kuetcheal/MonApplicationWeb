@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Avatar, Dialog } from "@mui/material";
+import { Typography, Avatar, Popover } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
 import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
@@ -11,7 +11,9 @@ import "./header1.css";
 
 const Header1 = () => {
   const location = useLocation();
-  const [openSettings, setOpenSettings] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openSettings = Boolean(anchorEl);
 
   const menu = [
     { label: "Vidéos", path: "/navbar" },
@@ -21,9 +23,11 @@ const Header1 = () => {
     { label: "Nos Acteurs", path: "/acteurs" },
   ];
 
+  const handleOpenSettings = (e) => setAnchorEl(e.currentTarget);
+  const handleCloseSettings = () => setAnchorEl(null);
+
   return (
     <header className="awHeader">
-      {/* Logo */}
       <div className="awHeader-brand">
         <img
           src={process.env.PUBLIC_URL + "/carte_afrique.png"}
@@ -35,7 +39,6 @@ const Header1 = () => {
         </Typography>
       </div>
 
-      {/* Menu */}
       <nav className="awHeader-nav">
         {menu.map((item) => (
           <Link
@@ -52,20 +55,34 @@ const Header1 = () => {
         ))}
       </nav>
 
-      {/* Actions */}
       <div className="awHeader-actions">
-        <NotificationImportantIcon />
-        <AddToPhotosIcon />
-        <LanguageIcon />
+        <NotificationImportantIcon className="awHeader-icon" />
+        <AddToPhotosIcon className="awHeader-icon" />
+        <LanguageIcon className="awHeader-icon" />
 
-        <Avatar
-          className="awHeader-avatar"
-          onClick={() => setOpenSettings(true)}
-        />
+        <Avatar className="awHeader-avatar" onClick={handleOpenSettings} />
 
-        <Dialog open={openSettings} onClose={() => setOpenSettings(false)}>
-          <Setting handleClose={() => setOpenSettings(false)} />
-        </Dialog>
+        <Popover
+          open={openSettings}
+          anchorEl={anchorEl}
+          onClose={handleCloseSettings}
+          keepMounted                 // ✅ évite certains démontages/rebuild
+          container={document.body}
+          disableScrollLock
+          disableRestoreFocus
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          PaperProps={{
+            className: "awHeader-settingsPopover",
+            style: {
+              marginTop: 8,
+              maxWidth: "calc(100vw - 16px)",
+              marginRight: 8,
+            },
+          }}
+        >
+          <Setting handleClose={handleCloseSettings} />
+        </Popover>
       </div>
     </header>
   );

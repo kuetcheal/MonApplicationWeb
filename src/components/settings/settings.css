@@ -1,0 +1,62 @@
+/* ✅ contenu du mini popover */
+.settingsPopoverInner {
+  padding: 14px;
+}
+
+.settingsPopoverTitle {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.settingsLoadingMini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.settingsMiniInfo {
+  background: #0e0e0e;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.settingsMiniName {
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.settingsMiniEmail {
+  color: #bdbdbd;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.settingsMiniActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* boutons */
+.btnPrimary {
+  font-weight: 700 !important;
+}
+
+.btnOutline {
+  border-color: #555 !important;
+  color: #fff !important;
+}
+
+.btnDanger {
+  font-weight: 700 !important;
+  background:   rgb(224, 12, 139) !important;
+}
+
+.btnDanger:hover {
+  background: rgb(255, 154, 98) !important;
+}

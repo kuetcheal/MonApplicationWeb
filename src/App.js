@@ -16,9 +16,12 @@ import Header from "./components/header";
 import Fluxod from "./components/fluxod";
 import NotFoundPage from "./components/NotFoundPage";
 
-// Admin / Settings
+// Admin
 import Accueil from "./components/Admins/Accueil";
-import Sidebar from "./components/Admins/sidebar";
+import Clients from "./components/Admins/clients";
+import AdminLayout from "./components/Admins/AdminLayout";
+
+// setings du user
 import Setting from "./components/settings/setting";
 import Supression from "./components/settings/supression";
 import Parametre from "./components/settings/parametre";
@@ -45,8 +48,14 @@ const App = () => {
           <Route path="/header" element={<Header />} />
           <Route path="/fluxod" element={<Fluxod />} />
 
-          <Route path="/Accueil" element={<Accueil />} />
-          <Route path="/sidebar" element={<Sidebar />} />
+           <Route element={<AdminLayout />}>
+           <Route path="/Accueil" element={<Accueil />} />
+           <Route path="/clients" element={<Clients />} />
+          {/* plus tard */}
+          {/* <Route path="/admin/videos" element={<AdminVideos />} /> */}
+          {/* <Route path="/admin/parametres" element={<AdminParametres />} /> */}
+           </Route>
+          
           <Route path="/setting" element={<Setting />} />
           <Route path="/parametre" element={<Parametre />} />
           <Route path="/supression" element={<Supression />} />

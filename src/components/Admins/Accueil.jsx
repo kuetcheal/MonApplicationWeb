@@ -1,71 +1,152 @@
-import React from "react";
-import { useEffect, useState } from "react";
-//import { Card } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
 import "./accueil.css";
-import { Link } from "react-router-dom"; // Importer Link si vous utilisez react-router-dom
-import Avatar from "@mui/material/Avatar";
-import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
-//import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { clientApi, videoApi } from "../../api";
+
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 const Accueil = () => {
-  const [userId, setUserId] = useState("");
-  const [name, setName] = useState("");
+  const [clientsCount, setClientsCount] = useState(null);
+  const [videosCount, setVideosCount] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const load = async () => {
       try {
-        const responses = await axios.post("http://localhost:3001/admins", {
-          name,
-        });
-        const { userId } = responses.data;
-        setUserId(userId);
+        const clientsRes = await clientApi.getAll();
+        const clients = Array.isArray(clientsRes?.data) ? clientsRes.data : [];
+        setClientsCount(clients.length);
+      } catch {
+        setClientsCount(null);
+      }
 
-        const response = await axios.get(
-          "http://localhost:3001/user/${userId}"
-        );
-        const userData = response.data;
-        setName(userData.name);
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'utilisateur :",
-          error
-        );
+      try {
+        const videosRes = await videoApi.getAll();
+        const videos = Array.isArray(videosRes?.data)
+          ? videosRes.data
+          : Array.isArray(videosRes?.data?.data)
+          ? videosRes.data.data
+          : [];
+        setVideosCount(videos.length);
+      } catch {
+        setVideosCount(null);
       }
     };
 
-    fetchUserData();
+    load();
   }, []);
 
+  const stats = useMemo(
+    () => [
+      {
+        label: "Utilisateurs",
+        value: clientsCount ?? "—",
+        icon: <PeopleAltIcon />,
+      },
+      {
+        label: "Vidéos",
+        value: videosCount ?? "—",
+        icon: <PlayCircleOutlineIcon />,
+      },
+      {
+        label: "Croissance",
+        value: "+18%",
+        icon: <TrendingUpIcon />,
+      },
+      {
+        label: "Notifications",
+        value: "7",
+        icon: <NotificationsActiveIcon />,
+      },
+    ],
+    [clientsCount, videosCount]
+  );
+
   return (
-    <div>
-      <div className="navbar">
-         <div className="logo">
-          <img
-            src={process.env.PUBLIC_URL + "/jenee-logo.svg"}
-            alt="Logo"
-            
-            style={{ height: "120px", width: "120px" }}
-          />
+    <div className="adHome">
+      {/* Cards stats */}
+      <div className="adStats">
+        {stats.map((s) => (
+          <div className="adStatCard" key={s.label}>
+            <div>
+              <div className="adStatLabel">{s.label}</div>
+              <div className="adStatValue">{s.value}</div>
+            </div>
+
+            <div className="adStatIcon">{s.icon}</div>
           </div>
-          <div className="partie" style={{color: "white"}}>
-          <Typography> <h2>X Admins</h2> </Typography>
-          </div>
-          <div className="entete">
-            <Typography>
-              Bienvenue sur votre espace personnel {name}
-            </Typography>
-          </div>
-          <div className="avatar">
-              <IconButton color="inherit" >
-                <Avatar>   
-                </Avatar>
-              </IconButton>
-          </div>
+        ))}
       </div>
 
-      <div className="bording">
-        
+      {/* main blocks */}
+      <div className="adHomeGrid">
+        <section className="adPanel">
+          <div className="adPanelHead">
+            <h3>Derniers utilisateurs</h3>
+            <Link to="/clients" className="adBtnPrimary">
+              VOIR TOUT
+            </Link>
+          </div>
+
+          {/* là tu remplaceras plus tard par “les 5 derniers” depuis API */}
+          <div className="adFakeTable">
+            <div className="adFakeRow adFakeHeader">
+              <span>Nom</span>
+              <span>Email</span>
+              <span>Rôle</span>
+            </div>
+
+            {[
+              { name: "Frank", email: "elockfrank4@gmail.com", role: "User" },
+              { name: "Maya", email: "maya@gmail.com", role: "User" },
+              { name: "Koffi", email: "koffi@gmail.com", role: "Creator" },
+              { name: "Aline", email: "aline@gmail.com", role: "User" },
+            ].map((u) => (
+              <div className="adFakeRow" key={u.email}>
+                <span className="adNameCell">
+                  <span className="adMiniAvatar">{u.name[0]}</span>
+                  <span className="adName">{u.name}</span>
+                </span>
+                <span className="adEmail">{u.email}</span>
+                <span className="adRolePill">{u.role}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="adPanel">
+          <div className="adPanelHead">
+            <h3>Activité récente</h3>
+          </div>
+
+          <div className="adActivity">
+            <div className="adActivityItem">
+              <span className="adDot" />
+              <div>
+                <div className="adActivityTitle">Nouvelle vidéo ajoutée</div>
+                <div className="adActivityMeta">il y a 12 min</div>
+              </div>
+            </div>
+
+            <div className="adActivityItem">
+              <span className="adDot" />
+              <div>
+                <div className="adActivityTitle">3 nouveaux utilisateurs inscrits</div>
+                <div className="adActivityMeta">il y a 1 h</div>
+              </div>
+            </div>
+
+            <div className="adActivityItem">
+              <span className="adDot" />
+              <div>
+                <div className="adActivityTitle">Mise à jour des catégories</div>
+                <div className="adActivityMeta">hier</div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

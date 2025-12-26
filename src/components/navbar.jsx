@@ -174,6 +174,7 @@ const Navbar = () => {
             <li><button type="button" className="awNav-subLink">Nouveautés</button></li>
             <li><button type="button" className="awNav-subLink">Tendances</button></li>
             <li><button type="button" className="awNav-subLink">Les plus regardés</button></li>
+            <li><button type="button" className="awNav-subLink">Les plus longues</button></li>
           </ul>
         </div>
 

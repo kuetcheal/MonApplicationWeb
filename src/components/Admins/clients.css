@@ -1,0 +1,110 @@
+.adClients {
+  color: #fff;
+}
+
+.adClientsHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.adClientsTitle {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.adClientsSub {
+  opacity: 0.8;
+  margin-top: 6px;
+  color: rgb(255, 154, 98);
+}
+
+.adClientsRefresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+}
+
+.adClientsRefresh:hover {
+  border-color: rgba(224, 12, 139, 0.55);
+}
+
+.adClientsEmpty {
+  margin-top: 22px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.adClientsCard {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.adClientsTableHead {
+  display: grid;
+  grid-template-columns: 110px 1.2fr 1.6fr 160px 140px;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.adClientsRow {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 110px 1.2fr 1.6fr 160px 140px;
+  gap: 12px;
+  padding: 16px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: center;
+}
+
+.adClientsName {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.adClientsEmail {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.adClientsRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.adClientsDelete {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.adClientsDelete:hover {
+  border-color: rgba(224, 12, 139, 0.55);
+}
