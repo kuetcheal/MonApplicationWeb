@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
@@ -11,7 +11,6 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -23,8 +22,11 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import "./SingleVideo.css";
 import { videoApi } from "../api";
 
-const SIDE_LIMIT = 10;      // colonne droite
-const SIMILAR_LIMIT = 12;   // grille bas (tu peux augmenter)
+// ✅ IMPORTANT : adapte le chemin si besoin
+import VideoCard from "./common/VideoCard";
+
+const SIDE_LIMIT = 10;
+const SIMILAR_LIMIT = 12;
 
 const SingleVideo = () => {
   const { id } = useParams();
@@ -34,14 +36,10 @@ const SingleVideo = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // actions
+  // actions (UI only)
   const [isFav, setIsFav] = useState(false);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-
-  // preview hover refs
-  const videoRefs = useRef(new Map());
-  const previewTimers = useRef(new Map());
 
   useEffect(() => {
     const load = async () => {
@@ -54,6 +52,7 @@ const SingleVideo = () => {
           : Array.isArray(res?.data?.data)
           ? res.data.data
           : [];
+
         setVideos(payload);
       } catch (e) {
         const msg =
@@ -67,9 +66,11 @@ const SingleVideo = () => {
         setLoading(false);
       }
     };
+
     load();
   }, []);
 
+  // ✅ même helper que Navbar / Allcategories
   const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const buildVideoUrl = (filePath) => {
     if (!filePath) return "";
@@ -90,69 +91,21 @@ const SingleVideo = () => {
   const sideList = useMemo(() => others.slice(0, SIDE_LIMIT), [others]);
   const similarList = useMemo(() => others.slice(0, SIMILAR_LIMIT), [others]);
 
-  // hover preview 0 -> 10s
-  const startPreview = (vid) => {
-    const el = videoRefs.current.get(vid);
-    if (!el) return;
-
-    try {
-      el.muted = true;
-      el.playsInline = true;
-      el.currentTime = 0;
-    } catch (_) {}
-
-    const p = el.play();
-    if (p?.catch) p.catch(() => {});
-
-    if (previewTimers.current.has(vid)) {
-      window.clearInterval(previewTimers.current.get(vid));
-    }
-
-    const t = window.setInterval(() => {
-      if (!el) return;
-      if (el.currentTime >= 10) {
-        el.pause();
-        window.clearInterval(t);
-        previewTimers.current.delete(vid);
-      }
-    }, 200);
-
-    previewTimers.current.set(vid, t);
-  };
-
-  const stopPreview = (vid) => {
-    const el = videoRefs.current.get(vid);
-    const t = previewTimers.current.get(vid);
-    if (t) window.clearInterval(t);
-    previewTimers.current.delete(vid);
-
-    if (!el) return;
-    el.pause();
-    try {
-      el.currentTime = 0;
-    } catch (_) {}
-  };
-
   const onOpenVideo = (vid) => {
-    stopPreview(vid);
     navigate(`/video/${vid}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ✅ Télécharger (simple) : ouvre le fichier dans un nouvel onglet
-  // Si ton serveur force le download via Content-Disposition, ça téléchargera.
   const handleDownload = () => {
     if (!currentVideo) return;
     const url = buildVideoUrl(currentVideo.filePath);
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  // ✅ Partager (copie le lien)
   const handleShare = async () => {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      // tu peux remplacer par un Snackbar si tu veux
       alert("Lien copié ✅");
     } catch {
       alert(url);
@@ -185,7 +138,11 @@ const SingleVideo = () => {
       <Box className="sv-page">
         <Box className="sv-center">
           <Typography className="sv-error">{error}</Typography>
-          <Button onClick={() => navigate("/navbar")} variant="outlined" className="sv-outlineBtn">
+          <Button
+            onClick={() => navigate("/navbar")}
+            variant="outlined"
+            className="sv-outlineBtn"
+          >
             Revenir
           </Button>
         </Box>
@@ -198,7 +155,11 @@ const SingleVideo = () => {
       <Box className="sv-page">
         <Box className="sv-center">
           <Typography className="sv-error">Vidéo introuvable.</Typography>
-          <Button onClick={() => navigate("/navbar")} variant="outlined" className="sv-outlineBtn">
+          <Button
+            onClick={() => navigate("/navbar")}
+            variant="outlined"
+            className="sv-outlineBtn"
+          >
             Revenir
           </Button>
         </Box>
@@ -210,7 +171,6 @@ const SingleVideo = () => {
 
   return (
     <Box className="sv-page">
-      {/* MAIN GRID */}
       <Box className="sv-layout">
         {/* LEFT */}
         <Box className="sv-main">
@@ -220,7 +180,7 @@ const SingleVideo = () => {
             </div>
           </Card>
 
-          {/* ✅ TITRE + LIGNE D’ACTIONS (tout sur la même ligne) */}
+          {/* TITLE + ACTIONS */}
           <Box className="sv-meta">
             <Typography className="sv-title">{currentVideo.title}</Typography>
 
@@ -237,7 +197,10 @@ const SingleVideo = () => {
               </Tooltip>
 
               <Tooltip title="Ajouter aux favoris">
-                <IconButton className="sv-iconBtn sv-favIcon" onClick={() => setIsFav((s) => !s)}>
+                <IconButton
+                  className="sv-iconBtn sv-favIcon"
+                  onClick={() => setIsFav((s) => !s)}
+                >
                   {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
               </Tooltip>
@@ -245,7 +208,10 @@ const SingleVideo = () => {
               <Divider className="sv-vDivider" orientation="vertical" flexItem />
 
               <Tooltip title="Like">
-                <IconButton className={`sv-iconBtn ${liked ? "isActive" : ""}`} onClick={toggleLike}>
+                <IconButton
+                  className={`sv-iconBtn ${liked ? "isActive" : ""}`}
+                  onClick={toggleLike}
+                >
                   <ThumbUpAltOutlinedIcon />
                 </IconButton>
               </Tooltip>
@@ -264,10 +230,7 @@ const SingleVideo = () => {
                   className="sv-actionBtn"
                   variant="outlined"
                   startIcon={<ChatBubbleOutlineIcon />}
-                  onClick={() => {
-                    // tu peux scroller vers un bloc commentaires plus bas si tu l’ajoutes
-                    alert("Zone commentaires à venir ✅");
-                  }}
+                  onClick={() => alert("Zone commentaires à venir ✅")}
                 >
                   Commentaires
                 </Button>
@@ -286,46 +249,30 @@ const SingleVideo = () => {
             </Box>
           </Box>
 
-          {/* ✅ VIDEOS SIMILAIRES (grille sans scroll, pleine largeur) */}
+          {/* SIMILAR */}
           <Box className="sv-similar">
             <Typography className="sv-sectionTitle">Vidéos similaires</Typography>
 
             <Box className="sv-similarGrid">
               {similarList.map((v) => (
-                <Box
-                  key={v.id}
-                  className="sv-gridItem"
-                  onMouseEnter={() => startPreview(v.id)}
-                  onMouseLeave={() => stopPreview(v.id)}
-                  onClick={() => onOpenVideo(v.id)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  {/* ✅ card identique à navbar */}
-                  <div className="awNav-videoCard sv-cardFix">
-                    <div className="awNav-videoInner">
-                      <video
-                        ref={(el) => {
-                          if (el) videoRefs.current.set(v.id, el);
-                          else videoRefs.current.delete(v.id);
-                        }}
-                        className="awNav-videoThumb sv-thumbGrid"
-                        preload="metadata"
-                        muted
-                        playsInline
-                        src={buildVideoUrl(v.filePath)}
-                      />
-                      <div className="sv-miniBar">
-                        <div className="sv-miniTitle">{v.title}</div>
-                      </div>
-                    </div>
-                  </div>
+                <Box key={v.id} className="sv-gridItem">
+                  <VideoCard
+                    video={v}
+                    buildVideoUrl={buildVideoUrl}
+                    onClick={() => onOpenVideo(v.id)}
+                    previewSeconds={10}
+                    showControls={false}   // ✅ Option A
+                  />
                 </Box>
               ))}
             </Box>
 
             <Box className="sv-similarBottom">
-              <Button className="sv-moreBtn" variant="contained" onClick={() => navigate("/navbar")}>
+              <Button
+                className="sv-moreBtn"
+                variant="contained"
+                onClick={() => navigate("/navbar")}
+              >
                 AFFICHER TOUTES LES VIDÉOS
               </Button>
             </Box>
@@ -338,33 +285,16 @@ const SingleVideo = () => {
 
           <Box className="sv-sideScroll">
             {sideList.map((v) => (
-              <Box
-                key={v.id}
-                className="sv-sideItem"
-                onClick={() => onOpenVideo(v.id)}
-                onMouseEnter={() => startPreview(v.id)}
-                onMouseLeave={() => stopPreview(v.id)}
-                role="button"
-                tabIndex={0}
-              >
-                <div className="awNav-videoCard sv-sideCardFix">
-                  <div className="awNav-videoInner sv-sideInner">
-                    <video
-                      ref={(el) => {
-                        if (el) videoRefs.current.set(v.id, el);
-                        else videoRefs.current.delete(v.id);
-                      }}
-                      className="awNav-videoThumb sv-sideThumb"
-                      preload="metadata"
-                      muted
-                      playsInline
-                      src={buildVideoUrl(v.filePath)}
-                    />
-                    <div className="sv-sideText">
-                      <div className="sv-sideName">{v.title}</div>
-                      <div className="sv-sideSub">{v.mimeType || "video/mp4"}</div>
-                    </div>
-                  </div>
+              <Box key={v.id} className="sv-sideItem">
+                {/* ✅ wrapper pour garder ton style “liste” */}
+                <div className="sv-sideCardWrap">
+                  <VideoCard
+                    video={v}
+                    buildVideoUrl={buildVideoUrl}
+                    onClick={() => onOpenVideo(v.id)}
+                    previewSeconds={10}
+                    showControls={false} // ✅ Option A
+                  />
                 </div>
               </Box>
             ))}

@@ -19,6 +19,7 @@
   align-items: center;
   gap: 14px;
   min-width: 320px;
+  font-size: 50px;
 }
 
 .aw-logo img {

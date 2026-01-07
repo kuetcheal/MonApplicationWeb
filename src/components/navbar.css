@@ -5,9 +5,7 @@
   width: 100%;
   border-radius: 0 !important;
   box-shadow: none !important;
-  /* max-width: 1500px; */
-  /* ✅ empêche l’apparition de scrollbars horizontales au hover */
-  overflow-x: hidden;
+  overflow-x: hidden; /* ✅ pas de scroll horizontal */
 }
 
 /* ---------------- HEADER ---------------- */
@@ -90,26 +88,26 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 10px 28px 4px 28px;
+  padding: 5px 18px 4px 18px;
 }
 
 .awNav-subLeft {
   display: flex;
   align-items: baseline;
-  gap: 20px; /* ✅ resserré */
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .awNav-subTitle {
   margin: 0;
   color: rgb(224, 12, 139);
-  font-size: 44px;
+  font-size: 34px;
   font-weight: 700;
 }
 
 .awNav-subMenu {
   display: flex;
-  gap: 32px; /* ✅ resserré */
+  gap: 32px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -163,12 +161,10 @@
 /* ---------------- MAIN LAYOUT ---------------- */
 .awNav-main {
   display: grid;
-  grid-template-columns: 300px 1fr; /* ✅ un peu plus serré */
-  gap: 14px; /* ✅ réduit l’espace gauche <-> vidéos */
-  padding: 10px 22px 30px 22px; 
+  grid-template-columns: 300px 1fr;
+  gap: 14px;
+  padding: 10px 22px 30px 22px;
   align-items: start;
-
-  /* ✅ évite scrollbar horizontale si un zoom dépasse */
   overflow-x: hidden;
 }
 
@@ -257,8 +253,6 @@
 /* content */
 .awNav-content {
   min-width: 0;
-
-  /* ✅ important : ne pas créer de scrollbars internes */
   overflow: visible;
 }
 
@@ -273,55 +267,7 @@
 /* ---------------- VIDEO GRID ---------------- */
 .awNav-videoGrid {
   margin: 0 !important;
-
-  /* ✅ MUI ImageList a parfois overflow:auto => barres au hover */
-  overflow: visible !important;
-}
-
-/* carte vidéo */
-.awNav-videoCard {
-  position: relative;
-  border-radius: 10px;
-  overflow: visible; /* on autorise le scale */
-  cursor: pointer;
-  z-index: 1;
-}
-
-/* inner = vrai “bloc” qui scale */
-.awNav-videoInner {
-  border-radius: 18px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);
-  transform-origin: center;
-  transition: transform 180ms ease, box-shadow 180ms ease;
-  will-change: transform;
-}
-
-/* hover zoom sans déplacer les autres */
-.awNav-videoCard:hover {
-  z-index: 80;
-}
-
-.awNav-videoCard:hover .awNav-videoInner {
-  transform: scale(1.06);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55);
-}
-
-/* taille uniforme */
-.awNav-videoThumb {
-  width: 100%;
-  height: 230px;
-  object-fit: cover;
-  display: block;
-}
-
-/* barre de titre */
-.awNav-videoBar {
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
-}
-
-.awNav-infoBtn {
-  color: rgba(255, 255, 255, 0.75) !important;
+  overflow: visible !important; /* ✅ pas de scroll interne */
 }
 
 /* ---------------- BOTTOM BUTTON ---------------- */

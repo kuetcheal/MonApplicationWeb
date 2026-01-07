@@ -11,6 +11,8 @@ import ForgetPassword from "./components/Authentification/forgetPassword";
 
 // APP
 import Navbar from "./components/navbar";
+import VideoCard from "./components/common/VideoCard"
+import Allcategories from "./components/Allcategories";
 import SingleVideo from "./components/SingleVideo";
 import Header from "./components/header";
 import Fluxod from "./components/fluxod";
@@ -44,6 +46,8 @@ const App = () => {
        
         <Route element={<Layout />}>
           <Route path="/navbar" element={<Navbar />} />
+          <Route path="/Allcategories" element={<Allcategories />} />
+          <Route path="/VideoCard" element={<VideoCard />} /> 
           <Route path="/video/:id" element={<SingleVideo />} />
           <Route path="/header" element={<Header />} />
           <Route path="/fluxod" element={<Fluxod />} />

@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### composant réutilisable
+le dossier common contient les composants réutilisables en cas de besoin
+
+### Pourquoi ce système va t’être bénéfique maintenant
+Dans ton projet actuel :
+Navbar.jsx fait videoApi.getAll()
+SingleVideo.jsx fait videoApi.getAll()
+Allcategories.jsx fait videoApi.getAll()
+➡️ Tu fais potentiellement 3 appels identiques (et à chaque navigation/reload).
+Avec un store + cache (RTK Query ou React Query), tu fais 1 seul appel, ensuite tout le monde lit la même source.
