@@ -31,6 +31,9 @@ import Parametre from "./components/settings/parametre";
 // Layout
 import Layout from "./components/layout/layout";
 
+// pages 
+import Favoris from "./pages/favoris";
+
 const App = () => {
   return (
     <Router>
@@ -52,12 +55,14 @@ const App = () => {
           <Route path="/header" element={<Header />} />
           <Route path="/fluxod" element={<Fluxod />} />
 
+            <Route path="/favoris" element={<Favoris />} />
+
            <Route element={<AdminLayout />}>
            <Route path="/Accueil" element={<Accueil />} />
            <Route path="/clients" element={<Clients />} />
-          {/* plus tard */}
-          {/* <Route path="/admin/videos" element={<AdminVideos />} /> */}
-          {/* <Route path="/admin/parametres" element={<AdminParametres />} /> */}
+
+           
+         
            </Route>
           
           <Route path="/setting" element={<Setting />} />

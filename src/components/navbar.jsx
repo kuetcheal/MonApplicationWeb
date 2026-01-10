@@ -14,7 +14,7 @@ import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { videoApi } from "../api";
-import VideoCard from "./common/VideoCard"; // ✅ composant réutilisable
+import VideoCard from "./common/VideoCard"; 
 
 const PAGE_SIZE = 16; // 4x4
 

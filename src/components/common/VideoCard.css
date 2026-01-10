@@ -1,5 +1,3 @@
-
-
 .awVideoCard {
   position: relative;
   border-radius: 10px;
@@ -9,6 +7,7 @@
 }
 
 .awVideoInner {
+  position: relative;
   border-radius: 18px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
@@ -33,10 +32,86 @@
   display: block;
 }
 
-.awVideoBar {
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+/* ===== Overlay ===== */
+
+.awVideoOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.awVideoInfoBtn {
-  color: rgba(255, 255, 255, 0.75) !important;
+/* Barre bien visible en bas (type bandeau) */
+.awVideoBottomBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  background: rgba(0, 0, 0, 0.70);      
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  /* petit blur sympa, optionnel */
+  backdrop-filter: blur(4px);
+}
+
+/* Partie gauche : titre */
+.awVideoBottomLeft {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.awVideoTitle {
+  color: #fff;
+  font-size: 1.15rem;      /* 👉 plus grand qu’avant */
+  font-weight: 700;        /* plus “bold” */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Partie droite : durée + vues + favoris */
+.awVideoBottomRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.8rem;
+}
+
+/* Durée */
+.awVideoDuration {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* Vues */
+.awVideoViews {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Bouton favoris */
+.awVideoFavBtn {
+  pointer-events: auto;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.awVideoFavBtn:hover {
+  transform: scale(1.05);
 }
