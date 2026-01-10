@@ -1,0 +1,23 @@
+.pageFavoris {
+  padding: 24px;
+  color: #fff;
+}
+
+.pageFavorisTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #ff1493; /* à adapter à ta charte */
+}
+
+.pageFavorisEmpty {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Grille de cartes, proche de ta page Mes Events */
+.favorisGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}

@@ -4,7 +4,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../../store/favoritesSlice"; // ⬅️ adapte le chemin si besoin
+import { toggleFavorite, selectIsFavorite } from "../../store/favoritesSlice";
 import "./VideoCard.css";
 
 const VideoCard = ({
@@ -18,9 +18,7 @@ const VideoCard = ({
   const [duration, setDuration] = useState(null);
 
   const dispatch = useDispatch();
-  const isFavorite = useSelector((state) =>
-    state.favorites?.items?.some((v) => v.id === video?.id)
-  );
+  const isFavorite = useSelector((state) => selectIsFavorite(state, video));
 
   const startPreview = () => {
     const el = videoRef.current;
@@ -105,17 +103,14 @@ const VideoCard = ({
           onLoadedMetadata={(e) => setDuration(e.target.duration)}
         />
 
-        {/* Overlay bas */}
         <div className="awVideoOverlay">
           <div className="awVideoBottomBar">
-            {/* Titre à gauche */}
             <div className="awVideoBottomLeft">
               <div className="awVideoTitle" title={video?.title || ""}>
                 {video?.title || ""}
               </div>
             </div>
 
-            {/* Durée + vues + favoris à droite */}
             <div className="awVideoBottomRight">
               {duration !== null && (
                 <span className="awVideoDuration">
