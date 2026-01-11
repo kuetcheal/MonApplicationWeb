@@ -63,61 +63,9 @@
 
 .sv-player {
   width: 100%;
-  height: 560px; /* ✅ un peu plus haut */
+  height: 560px; /* un peu plus haut */
   object-fit: cover;
   display: block;
-}
-
-/* meta */
-.sv-meta {
-  padding-top: 10px;
-}
-
-.sv-title {
-  font-size: 30px;
-  font-weight: 700;
-  margin: 10px 0 12px 0;
-}
-
-/* ✅ ligne actions */
-.sv-actionRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap; /* en responsive ça passe à la ligne */
-  padding-bottom: 8px;
-}
-
-.sv-actionBtn {
-  height: 42px;
-  border-radius: 12px !important;
-  text-transform: none !important;
-  font-weight: 700 !important;
-}
-
-.sv-actionPrimary {
-  background: rgb(224, 12, 139) !important;
-}
-
-.sv-iconBtn {
-  color: #fff !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 12px !important;
-}
-
-.sv-favIcon {
-  color: rgb(224, 12, 139) !important;
-}
-
-.sv-iconBtn.isActive {
-  border-color: rgb(224, 12, 139) !important;
-  box-shadow: 0 0 0 2px rgba(224, 12, 139, 0.25) inset;
-}
-
-.sv-vDivider {
-  background: rgba(255, 255, 255, 0.18) !important;
-  margin: 0 4px !important;
 }
 
 /* RIGHT side */
@@ -192,11 +140,10 @@
   margin-bottom: 12px;
 }
 
-/* ✅ IMPORTANT : plus de scroll horizontal */
+/* IMPORTANT : plus de scroll horizontal */
 .sv-similarGrid {
   display: grid;
   gap: 16px;
-  /* ✅ auto-fit : calcule combien de cards entrent selon largeur */
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
@@ -254,9 +201,58 @@
 
 .sv-outlineBtn {
   color: #fff !important;
-  border-color: rgba(255, 255, 255, 0.30) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
   border-radius: 10px !important;
 }
+
+
+
+
+/* Bloc global des commentaires */
+.sv-commentSection {
+  margin-top: 16px;
+}
+
+/* Carte blanche pour bien voir le formulaire */
+.sv-commentPaper {
+  background-color: #ffffff;      /* fond blanc */
+  color: #000000;                 /* texte noir */
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* Champ de commentaire */
+.sv-commentField {
+  margin-top: 8px;
+}
+
+/* On force bien les couleurs dans le TextField MUI */
+.sv-commentField .MuiInputBase-root {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.sv-commentField .MuiInputBase-input {
+  color: #000000;
+}
+
+.sv-commentField .MuiInputBase-input::placeholder {
+  color: #555555;
+}
+
+/* Actions en bas du formulaire */
+.sv-commentActions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+/* Boutons ENVOYER / ANNULER */
+.sv-commentActions .MuiButton-root {
+  text-transform: uppercase;
+}
+
+
 
 /* responsive */
 @media (max-width: 1100px) {
@@ -291,9 +287,5 @@
 
   .sv-player {
     height: 260px;
-  }
-
-  .sv-actionBtn {
-    width: 100%;
   }
 }

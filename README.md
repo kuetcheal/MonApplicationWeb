@@ -81,3 +81,14 @@ SingleVideo.jsx fait videoApi.getAll()
 Allcategories.jsx fait videoApi.getAll()
 ➡️ Tu fais potentiellement 3 appels identiques (et à chaque navigation/reload).
 Avec un store + cache (RTK Query ou React Query), tu fais 1 seul appel, ensuite tout le monde lit la même source.
+
+
+### 2. Où stocker le nombre de vues ?
+❌ Pas dans Redux comme source principale
+Redux c’est : local au navigateur effacé au refresh (sauf si tu persistes) propre à un seul utilisateur Mais le nombre de vues, c’est une info globale, partagée par tous les utilisateurs.
+👉 Donc la vérité doit être dans le BACKEND / BDD, pas dans Redux.
+
+
+
+#### les composants réutilisables 
+dans ce projet, les composants réutilisables sont placés dans le dossier src/common ; à savoir VideoCard, videoTittle

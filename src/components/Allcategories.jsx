@@ -1,5 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Button, Typography, IconButton, Divider, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  IconButton,
+  Divider,
+  Tooltip,
+  Card,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,6 +27,7 @@ import "./Allcategories.css";
 
 import { videoApi } from "../api";
 import VideoCard from "../components/common/VideoCard"; // ✅ adapte si ton chemin diffère
+import VideoTittle from "../components/common/VideoTittle";
 
 const CHUNK_SIZE = 5;
 
@@ -75,7 +84,8 @@ const Allcategories = () => {
   const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const buildVideoUrl = (filePath) => {
     if (!filePath) return "";
-    if (filePath.startsWith("http://") || filePath.startsWith("https://")) return filePath;
+    if (filePath.startsWith("http://") || filePath.startsWith("https://"))
+      return filePath;
     return `${apiBase}${filePath.startsWith("/") ? "" : "/"}${filePath}`;
   };
 
@@ -132,7 +142,11 @@ const Allcategories = () => {
       <Box className="ac-page">
         <Box className="ac-center">
           <Typography className="ac-error">{errorVideos}</Typography>
-          <Button onClick={() => navigate("/navbar")} variant="outlined" className="ac-outlineBtn">
+          <Button
+            onClick={() => navigate("/navbar")}
+            variant="outlined"
+            className="ac-outlineBtn"
+          >
             Revenir
           </Button>
         </Box>
@@ -152,101 +166,34 @@ const Allcategories = () => {
 
   return (
     <Box className="ac-page">
-      {/* ✅ HERO VIDEO (overlay UNIQUEMENT EN BAS, pas sur les controls) */}
+      {/* ✅ HERO comme SingleVideo (vidéo + VideoTittle en dessous) */}
       <Box className="ac-hero">
-        <div className="ac-heroWrap">
-          <video
-            className="ac-heroVideo"
-            src={buildVideoUrl(heroVideo.filePath)}
-            controls
-            preload="metadata"
-          />
-
-          {/* ✅ overlay uniquement en bas */}
-          <div className="ac-heroBottomShade" />
-
-          {/* ✅ contenu en bas (titre + boutons comme SingleVideo) */}
-          <div className="ac-heroContent">
-            <Typography className="ac-heroTitle">{heroVideo.title}</Typography>
-
-            <div className="ac-actionRow">
-              <Tooltip title="Télécharger">
-                <Button
-                  onClick={handleDownload}
-                  className="ac-actionBtn ac-actionPrimary"
-                  startIcon={<DownloadOutlinedIcon />}
-                  variant="contained"
-                >
-                  Télécharger
-                </Button>
-              </Tooltip>
-
-              <Tooltip title="Ajouter aux favoris">
-                <IconButton className="ac-iconBtn ac-favIcon" onClick={() => setIsFav((s) => !s)}>
-                  {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-              </Tooltip>
-
-              <Divider className="ac-vDivider" orientation="vertical" flexItem />
-
-              <Tooltip title="Like">
-                <IconButton className={`ac-iconBtn ${liked ? "isActive" : ""}`} onClick={toggleLike}>
-                  <ThumbUpAltOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-
-              <Tooltip title="Dislike">
-                <IconButton
-                  className={`ac-iconBtn ${disliked ? "isActive" : ""}`}
-                  onClick={toggleDislike}
-                >
-                  <ThumbDownAltOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-
-              <Tooltip title="Commentaires">
-                <Button
-                  className="ac-actionBtn"
-                  variant="outlined"
-                  startIcon={<ChatBubbleOutlineIcon />}
-                  onClick={() => alert("Zone commentaires à venir ✅")}
-                >
-                  Commentaires
-                </Button>
-              </Tooltip>
-
-              <Tooltip title="Partager">
-                <Button
-                  className="ac-actionBtn"
-                  variant="outlined"
-                  startIcon={<ShareOutlinedIcon />}
-                  onClick={handleShare}
-                >
-                  Partager
-                </Button>
-              </Tooltip>
-
-              <Button
-                className="ac-actionBtn ac-infoBtn"
-                variant="outlined"
-                onClick={() => onOpenVideo(heroVideo.id)}
-              >
-                Plus d’infos
-              </Button>
-
-              <Button
-                className="ac-actionBtn ac-playBtn"
-                variant="contained"
-                onClick={() => onOpenVideo(heroVideo.id)}
-              >
-                Lecture
-              </Button>
-            </div>
+        <Card className="sv-playerCard">
+          <div className="sv-playerWrap">
+            <video
+              className="sv-player"
+              src={buildVideoUrl(heroVideo.filePath)}
+              controls
+              preload="metadata"
+            />
           </div>
-        </div>
+        </Card>
+
+        <VideoTittle
+          title={heroVideo.title}
+          isFav={isFav}
+          liked={liked}
+          disliked={disliked}
+          onToggleFav={() => setIsFav((s) => !s)}
+          onToggleLike={toggleLike}
+          onToggleDislike={toggleDislike}
+          onDownload={handleDownload}
+          onShare={handleShare}
+          onComments={() => alert("Zone commentaires à venir ✅")}
+        />
       </Box>
 
-      {/* ✅ “Catégories” temporaires = groupes de 5 */}
+      {/* ✅ “Catégories” temporaires = groupes de 5 (TON CODE D’ORIGINE, inchangé) */}
       <Box className="ac-sections">
         {categoryChunks.map((list, idx) => (
           <Box key={idx} className="ac-section">
@@ -270,7 +217,7 @@ const Allcategories = () => {
                 <SwiperSlide key={v.id} className="ac-slide">
                   <VideoCard
                     video={v}
-                    buildVideoUrl={buildVideoUrl}   // ✅ IMPORTANT (sinon erreur)
+                    buildVideoUrl={buildVideoUrl} // ✅ IMPORTANT
                     onClick={() => onOpenVideo(v.id)}
                     previewSeconds={10}
                   />

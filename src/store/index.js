@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import favoritesReducer from "./favoritesSlice";
+import videoReactionsReducer from "./videoReactionsSlice";
 
 const PERSIST_KEY = "aw_favorites_v1";
 
@@ -27,6 +28,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     favorites: favoritesReducer,
+    videoReactions: videoReactionsReducer,
   },
   preloadedState,
 });

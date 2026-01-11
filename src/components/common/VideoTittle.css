@@ -1,0 +1,147 @@
+/* meta globale */
+.sv-meta {
+  padding-top: 10px;
+}
+
+/* ✅ Titre + actions sur une seule ligne */
+.sv-headerRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap; 
+}
+
+.sv-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 10px 0;
+  
+}
+
+
+
+.sv-count {
+  color: #fff;
+  font-size: 0.85rem;
+  min-width: 1.5rem;
+  text-align: left;
+}
+
+
+
+/* ligne actions */
+.sv-actionRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-left : 30px
+}
+
+.sv-actionBtn {
+  height: 42px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+}
+
+.sv-actionPrimary {
+  background: rgb(224, 12, 139) !important;
+}
+
+.sv-iconBtn {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+}
+
+.sv-favIcon {
+  color: rgb(224, 12, 139) !important;
+}
+
+.sv-iconBtn.isActive {
+  border-color: rgb(224, 12, 139) !important;
+  box-shadow: 0 0 0 2px rgba(224, 12, 139, 0.25) inset;
+}
+
+.sv-vDivider {
+  background: rgba(255, 255, 255, 0.18) !important;
+  margin: 0 4px !important;
+}
+
+/* Icône + petit compteur à côté (likes / dislikes) */
+.sv-iconWithCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sv-count {
+  font-size: 0.9rem;
+  color: #ffffff;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Label du bouton commentaires avec badge */
+.sv-commentLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sv-commentCount {
+  min-width: 20px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ff0080; /* tu peux adapter à ta couleur principale */
+  color: #ffffff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+
+
+.sv-count {
+  font-size: 0.85rem;
+}
+
+/* badge rose à droite du bouton Commentaires */
+.sv-commentBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sv-commentBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: #ff0080; /* rose */
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+/* responsive */
+@media (max-width: 800px) {
+  .sv-headerRow {
+    align-items: flex-start;
+  }
+
+  .sv-title {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .sv-actionBtn {
+    width: 100%;
+  }
+}

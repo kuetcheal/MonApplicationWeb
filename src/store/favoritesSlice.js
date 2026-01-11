@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// clé unique pour une vidéo (on essaye plusieurs champs possibles)
+
 const getVideoKey = (video) =>
   video?.id ??
   video?._id ??
@@ -10,7 +10,7 @@ const getVideoKey = (video) =>
   null;
 
 const initialState = {
-  items: [], // chaque item = { ...video, _favKey }
+  items: [], 
 };
 
 const favoritesSlice = createSlice({

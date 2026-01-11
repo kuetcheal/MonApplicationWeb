@@ -1,29 +1,22 @@
+// src/components/SingleVideo.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Card,
   Typography,
-  IconButton,
   Button,
-  Divider,
   CircularProgress,
-  Tooltip,
+  TextField,
 } from "@mui/material";
-
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
-import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 
 import "./SingleVideo.css";
 import { videoApi } from "../api";
+import { selectIsFavorite, toggleFavorite } from "../store/favoritesSlice";
 
-// ✅ IMPORTANT : adapte le chemin si besoin
 import VideoCard from "./common/VideoCard";
+import VideoTittle from "./common/VideoTittle";
 
 const SIDE_LIMIT = 10;
 const SIMILAR_LIMIT = 12;
@@ -31,16 +24,30 @@ const SIMILAR_LIMIT = 12;
 const SingleVideo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const numericId = Number(id);
 
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // actions (UI only)
-  const [isFav, setIsFav] = useState(false);
+  // Etat visuel like/dislike
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
+  // Etat du formulaire de commentaires
+  const [showCommentsBox, setShowCommentsBox] = useState(false);
+  const [commentAuthor, setCommentAuthor] = useState("");
+  const [commentContent, setCommentContent] = useState("");
+  const [commentError, setCommentError] = useState("");
+  const [isSendingComment, setIsSendingComment] = useState(false);
+
+  const isFav = useSelector((state) =>
+    selectIsFavorite(state, { id: numericId })
+  );
+
+  // Charger toutes les vidéos
   useEffect(() => {
     const load = async () => {
       setLoading(true);
@@ -70,30 +77,53 @@ const SingleVideo = () => {
     load();
   }, []);
 
-  // ✅ même helper que Navbar / Allcategories
   const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const buildVideoUrl = (filePath) => {
     if (!filePath) return "";
-    if (filePath.startsWith("http://") || filePath.startsWith("https://")) return filePath;
+    if (filePath.startsWith("http://") || filePath.startsWith("https://"))
+      return filePath;
     return `${apiBase}${filePath.startsWith("/") ? "" : "/"}${filePath}`;
   };
 
-  const currentVideo = useMemo(() => {
-    const vid = Number(id);
-    return videos.find((v) => Number(v.id) === vid) || null;
-  }, [videos, id]);
+  const currentVideo = useMemo(
+    () => videos.find((v) => Number(v.id) === numericId) || null,
+    [videos, numericId]
+  );
 
-  const others = useMemo(() => {
-    const vid = Number(id);
-    return videos.filter((v) => Number(v.id) !== vid);
-  }, [videos, id]);
+  const others = useMemo(
+    () => videos.filter((v) => Number(v.id) !== numericId),
+    [videos, numericId]
+  );
 
   const sideList = useMemo(() => others.slice(0, SIDE_LIMIT), [others]);
   const similarList = useMemo(() => others.slice(0, SIMILAR_LIMIT), [others]);
 
+  // +1 vue à chaque ouverture de vidéo
+  useEffect(() => {
+    if (!currentVideo) return;
+
+    videoApi
+      .addView(currentVideo.id)
+      .then((res) => {
+        const newViews = res?.data?.viewsCount;
+        if (typeof newViews === "number") {
+          setVideos((prev) =>
+            prev.map((v) =>
+              v.id === currentVideo.id ? { ...v, viewsCount: newViews } : v
+            )
+          );
+        }
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentVideo?.id]);
+
   const onOpenVideo = (vid) => {
     navigate(`/video/${vid}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setLiked(false);
+    setDisliked(false);
+    setShowCommentsBox(false);
   };
 
   const handleDownload = () => {
@@ -112,15 +142,148 @@ const SingleVideo = () => {
     }
   };
 
-  const toggleLike = () => {
-    setLiked((s) => !s);
-    if (!liked) setDisliked(false);
+  // Like : on met à jour l'état visuel + les compteurs locaux, et on notifie l'API
+  const handleToggleLike = async () => {
+    if (!currentVideo) return;
+
+    const prevLiked = liked;
+    const prevDisliked = disliked;
+
+    const newLiked = !prevLiked;
+    const newDisliked = newLiked ? false : prevDisliked;
+
+    setLiked(newLiked);
+    setDisliked(newDisliked);
+
+    // maj des compteurs en front (simple) pour que ça réagisse tout de suite
+    setVideos((prev) =>
+      prev.map((v) => {
+        if (v.id !== currentVideo.id) return v;
+
+        let likes = v.likesCount ?? 0;
+        let dislikes = v.dislikesCount ?? 0;
+
+        // like
+        if (!prevLiked && newLiked) likes += 1;
+        if (prevLiked && !newLiked) likes = Math.max(0, likes - 1);
+
+        // dislike (si on enlève le dislike en passant au like)
+        if (!prevDisliked && newDisliked) dislikes += 1;
+        if (prevDisliked && !newDisliked) dislikes = Math.max(0, dislikes - 1);
+
+        return { ...v, likesCount: likes, dislikesCount: dislikes };
+      })
+    );
+
+    // appels API (on ne dépend pas de la réponse pour l'affichage)
+    try {
+      await videoApi.setLike(currentVideo.id, newLiked);
+      if (prevDisliked !== newDisliked) {
+        await videoApi.setDislike(currentVideo.id, newDisliked);
+      }
+    } catch (e) {
+      console.error("Erreur like/dislike:", e);
+    }
   };
 
-  const toggleDislike = () => {
-    setDisliked((s) => !s);
-    if (!disliked) setLiked(false);
+  // Dislike : même principe
+  const handleToggleDislike = async () => {
+    if (!currentVideo) return;
+
+    const prevLiked = liked;
+    const prevDisliked = disliked;
+
+    const newDisliked = !prevDisliked;
+    const newLiked = newDisliked ? false : prevLiked;
+
+    setDisliked(newDisliked);
+    setLiked(newLiked);
+
+    setVideos((prev) =>
+      prev.map((v) => {
+        if (v.id !== currentVideo.id) return v;
+
+        let likes = v.likesCount ?? 0;
+        let dislikes = v.dislikesCount ?? 0;
+
+        // dislike
+        if (!prevDisliked && newDisliked) dislikes += 1;
+        if (prevDisliked && !newDisliked)
+          dislikes = Math.max(0, dislikes - 1);
+
+        // like (si on enlève le like en passant au dislike)
+        if (!prevLiked && newLiked) likes += 1;
+        if (prevLiked && !newLiked) likes = Math.max(0, likes - 1);
+
+        return { ...v, likesCount: likes, dislikesCount: dislikes };
+      })
+    );
+
+    try {
+      await videoApi.setDislike(currentVideo.id, newDisliked);
+      if (prevLiked !== newLiked) {
+        await videoApi.setLike(currentVideo.id, newLiked);
+      }
+    } catch (e) {
+      console.error("Erreur like/dislike:", e);
+    }
   };
+
+  // Ouverture / fermeture du bloc commentaires
+  const handleCommentsToggle = () => {
+    setShowCommentsBox((prev) => !prev);
+  };
+
+  const handleCancelComment = () => {
+    setShowCommentsBox(false);
+    setCommentAuthor("");
+    setCommentContent("");
+    setCommentError("");
+  };
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+    if (!currentVideo) return;
+
+    const content = commentContent.trim();
+    const author = commentAuthor.trim() || null;
+
+    if (!content) {
+      setCommentError("Le commentaire ne peut pas être vide.");
+      return;
+    }
+
+    setCommentError("");
+    setIsSendingComment(true);
+
+    try {
+      const res = await videoApi.addComment(currentVideo.id, content, author);
+      const newCount =
+        res?.data?.commentsCount ??
+        (currentVideo.commentsCount ?? 0) + 1; // fallback si jamais
+
+      setVideos((prev) =>
+        prev.map((v) =>
+          v.id === currentVideo.id ? { ...v, commentsCount: newCount } : v
+        )
+      );
+
+      setCommentContent("");
+      // tu peux garder ou non le nom
+      // setCommentAuthor("");
+    } catch (e) {
+      const msg =
+        e?.response?.data?.message ||
+        e?.response?.data?.error ||
+        e?.message ||
+        "Erreur lors de l'envoi du commentaire.";
+      setCommentError(msg);
+    } finally {
+      setIsSendingComment(false);
+    }
+  };
+
+  // ------------------ rendu ------------------
 
   if (loading) {
     return (
@@ -176,82 +339,95 @@ const SingleVideo = () => {
         <Box className="sv-main">
           <Card className="sv-playerCard">
             <div className="sv-playerWrap">
-              <video className="sv-player" controls preload="metadata" src={src} />
+              <video
+                className="sv-player"
+                controls
+                preload="metadata"
+                src={src}
+              />
             </div>
           </Card>
 
-          {/* TITLE + ACTIONS */}
-          <Box className="sv-meta">
-            <Typography className="sv-title">{currentVideo.title}</Typography>
+          <VideoTittle
+            title={currentVideo.title}
+            isFav={isFav}
+            liked={liked}
+            disliked={disliked}
+            likesCount={currentVideo.likesCount ?? 0}
+            dislikesCount={currentVideo.dislikesCount ?? 0}
+            commentsCount={currentVideo.commentsCount ?? 0}
+            onToggleFav={() =>
+              dispatch(
+                toggleFavorite({
+                  id: currentVideo.id,
+                  ...currentVideo,
+                })
+              )
+            }
+            onToggleLike={handleToggleLike}
+            onToggleDislike={handleToggleDislike}
+            onDownload={handleDownload}
+            onShare={handleShare}
+            onComments={handleCommentsToggle}
+          />
 
-            <Box className="sv-actionRow">
-              <Tooltip title="Télécharger">
-                <Button
-                  onClick={handleDownload}
-                  className="sv-actionBtn sv-actionPrimary"
-                  startIcon={<DownloadOutlinedIcon />}
-                  variant="contained"
-                >
-                  Télécharger
-                </Button>
-              </Tooltip>
+          {/* Bloc formulaire de commentaires */}
+          {showCommentsBox && (
+            <Box className="sv-commentsBox">
+              <form className="sv-commentsForm" onSubmit={handleSubmitComment}>
+                <Box className="sv-commentFields">
+                  <TextField
+                    label="Nom (facultatif)"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    value={commentAuthor}
+                    onChange={(e) => setCommentAuthor(e.target.value)}
+                    className="sv-commentField"
+                  />
+                  <TextField
+                    label="Saisissez votre commentaire"
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    value={commentContent}
+                    onChange={(e) => setCommentContent(e.target.value)}
+                    className="sv-commentField"
+                  />
+                </Box>
 
-              <Tooltip title="Ajouter aux favoris">
-                <IconButton
-                  className="sv-iconBtn sv-favIcon"
-                  onClick={() => setIsFav((s) => !s)}
-                >
-                  {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-              </Tooltip>
+                {commentError && (
+                  <Typography className="sv-commentError">
+                    {commentError}
+                  </Typography>
+                )}
 
-              <Divider className="sv-vDivider" orientation="vertical" flexItem />
-
-              <Tooltip title="Like">
-                <IconButton
-                  className={`sv-iconBtn ${liked ? "isActive" : ""}`}
-                  onClick={toggleLike}
-                >
-                  <ThumbUpAltOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-
-              <Tooltip title="Dislike">
-                <IconButton
-                  className={`sv-iconBtn ${disliked ? "isActive" : ""}`}
-                  onClick={toggleDislike}
-                >
-                  <ThumbDownAltOutlinedIcon />
-                </IconButton>
-              </Tooltip>
-
-              <Tooltip title="Commentaires">
-                <Button
-                  className="sv-actionBtn"
-                  variant="outlined"
-                  startIcon={<ChatBubbleOutlineIcon />}
-                  onClick={() => alert("Zone commentaires à venir ✅")}
-                >
-                  Commentaires
-                </Button>
-              </Tooltip>
-
-              <Tooltip title="Partager">
-                <Button
-                  className="sv-actionBtn"
-                  variant="outlined"
-                  startIcon={<ShareOutlinedIcon />}
-                  onClick={handleShare}
-                >
-                  Partager
-                </Button>
-              </Tooltip>
+                <Box className="sv-commentActions">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={isSendingComment}
+                  >
+                    {isSendingComment ? "Envoi..." : "Envoyer"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="text"
+                    onClick={handleCancelComment}
+                  >
+                    Annuler
+                  </Button>
+                </Box>
+              </form>
             </Box>
-          </Box>
+          )}
 
-          {/* SIMILAR */}
+          {/* SIMILAIRES */}
           <Box className="sv-similar">
-            <Typography className="sv-sectionTitle">Vidéos similaires</Typography>
+            <Typography className="sv-sectionTitle">
+              Vidéos similaires
+            </Typography>
 
             <Box className="sv-similarGrid">
               {similarList.map((v) => (
@@ -261,7 +437,7 @@ const SingleVideo = () => {
                     buildVideoUrl={buildVideoUrl}
                     onClick={() => onOpenVideo(v.id)}
                     previewSeconds={10}
-                    showControls={false}   // ✅ Option A
+                    showControls={false}
                   />
                 </Box>
               ))}
@@ -286,14 +462,13 @@ const SingleVideo = () => {
           <Box className="sv-sideScroll">
             {sideList.map((v) => (
               <Box key={v.id} className="sv-sideItem">
-                {/* ✅ wrapper pour garder ton style “liste” */}
                 <div className="sv-sideCardWrap">
                   <VideoCard
                     video={v}
                     buildVideoUrl={buildVideoUrl}
                     onClick={() => onOpenVideo(v.id)}
                     previewSeconds={10}
-                    showControls={false} // ✅ Option A
+                    showControls={false}
                   />
                 </div>
               </Box>
