@@ -83,10 +83,20 @@ Allcategories.jsx fait videoApi.getAll()
 Avec un store + cache (RTK Query ou React Query), tu fais 1 seul appel, ensuite tout le monde lit la même source.
 
 
-### 2. Où stocker le nombre de vues ?
-❌ Pas dans Redux comme source principale
-Redux c’est : local au navigateur effacé au refresh (sauf si tu persistes) propre à un seul utilisateur Mais le nombre de vues, c’est une info globale, partagée par tous les utilisateurs.
-👉 Donc la vérité doit être dans le BACKEND / BDD, pas dans Redux.
+
+#### Dans mon application, Redux Toolkit joue un rôle essentiel pour gérer certains états de manière centralisée, notamment :
+- l’ajout/retrait d’une vidéo dans les favoris,
+- le stockage de l’état visuel des likes/dislikes,
+- la mise à jour réactive de l’interface utilisateur.
+Même si les likes et commentaires sont envoyés directement à Symfony, Redux Toolkit est utilisé pour gérer l’état local et l’expérience utilisateur.
+
+Dans mon projet, j’utilise un reducer notamment pour la fonctionnalité suivante :
+Gestion des favoris : Le reducer du slice favoritesSlice sert à Centraliser les vidéos mises en favoris, Synchroniser l'interface de façon instantanée
+Gestion visuelle du Like/Dislike (partiellement)  :  L’état réel des likes/dislikes est géré par Symfony (pour éviter de fausser les compteurs).
+Mais Redux Toolkit aide à garder l’état visuel (like actif / dislike inactif).
+
+Les reducers définissent la manière dont l’état global doit évoluer lorsqu’une action est déclenchée (exemple : ajouter une vidéo en favoris, activer un like, désactiver un dislike, etc.). Ils garantissent un état cohérent et prévisible dans toute l’application
+
 
 
 

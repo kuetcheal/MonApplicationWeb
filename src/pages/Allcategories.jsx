@@ -26,7 +26,7 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import "./Allcategories.css";
 
 import { videoApi } from "../api";
-import VideoCard from "../components/common/VideoCard"; // ✅ adapte si ton chemin diffère
+import VideoCard from "../components/common/VideoCard"; 
 import VideoTittle from "../components/common/VideoTittle";
 
 const CHUNK_SIZE = 5;
@@ -44,7 +44,6 @@ const Allcategories = () => {
   const [loadingVideos, setLoadingVideos] = useState(true);
   const [errorVideos, setErrorVideos] = useState("");
 
-  // ✅ Actions (comme SingleVideo)
   const [isFav, setIsFav] = useState(false);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -80,7 +79,7 @@ const Allcategories = () => {
     load();
   }, []);
 
-  // ✅ helper URL vidéo (IMPORTANT : on le passe à VideoCard)
+  //  helper URL vidéo (IMPORTANT : on le passe à VideoCard)
   const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const buildVideoUrl = (filePath) => {
     if (!filePath) return "";
@@ -91,7 +90,7 @@ const Allcategories = () => {
 
   const heroVideo = useMemo(() => (videos.length ? videos[0] : null), [videos]);
 
-  // ✅ catégories temporaires : paquets de 5
+  //  catégories temporaires : paquets de 5
   const categoryChunks = useMemo(() => chunk(videos, CHUNK_SIZE), [videos]);
 
   const onOpenVideo = (id) => {
@@ -99,19 +98,19 @@ const Allcategories = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ✅ Télécharger (comme SingleVideo)
+  //  Télécharger (comme SingleVideo)
   const handleDownload = () => {
     if (!heroVideo) return;
     const url = buildVideoUrl(heroVideo.filePath);
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  // ✅ Partager (copie le lien)
+  //  Partager (copie le lien)
   const handleShare = async () => {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      alert("Lien copié ✅");
+      alert("Lien copié ");
     } catch {
       alert(url);
     }
@@ -166,7 +165,7 @@ const Allcategories = () => {
 
   return (
     <Box className="ac-page">
-      {/* ✅ HERO comme SingleVideo (vidéo + VideoTittle en dessous) */}
+      {/* HERO comme SingleVideo (vidéo + VideoTittle en dessous) */}
       <Box className="ac-hero">
         <Card className="sv-playerCard">
           <div className="sv-playerWrap">
@@ -189,11 +188,11 @@ const Allcategories = () => {
           onToggleDislike={toggleDislike}
           onDownload={handleDownload}
           onShare={handleShare}
-          onComments={() => alert("Zone commentaires à venir ✅")}
+          onComments={() => alert("Zone commentaires à venir ")}
         />
       </Box>
 
-      {/* ✅ “Catégories” temporaires = groupes de 5 (TON CODE D’ORIGINE, inchangé) */}
+      {/*  “Catégories” temporaires = groupes de 5 (TON CODE D’ORIGINE, inchangé) */}
       <Box className="ac-sections">
         {categoryChunks.map((list, idx) => (
           <Box key={idx} className="ac-section">
@@ -217,7 +216,7 @@ const Allcategories = () => {
                 <SwiperSlide key={v.id} className="ac-slide">
                   <VideoCard
                     video={v}
-                    buildVideoUrl={buildVideoUrl} // ✅ IMPORTANT
+                    buildVideoUrl={buildVideoUrl} // IMPORTANT
                     onClick={() => onOpenVideo(v.id)}
                     previewSeconds={10}
                   />

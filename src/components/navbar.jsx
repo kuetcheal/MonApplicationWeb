@@ -1,20 +1,15 @@
+// src/components/navbar.jsx
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Typography,
-  Divider,
-  Card,
-  ImageList,
-} from "@mui/material";
+import { Card, ImageList } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import "./navbar.css";
 
-import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import SearchIcon from "@mui/icons-material/Search";
 
+import "./navbar.css";
+
 import { videoApi } from "../api";
-import VideoCard from "./common/VideoCard"; 
+import VideoCard from "./common/VideoCard";
+import SidebarLayout from "./sidebarLayout";
 
 const PAGE_SIZE = 16; // 4x4
 
@@ -26,6 +21,8 @@ const Navbar = () => {
   const [errorVideos, setErrorVideos] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -67,7 +64,9 @@ const Navbar = () => {
   const videosFiltrees = useMemo(() => {
     const search = texteRecherche.trim().toLowerCase();
     if (!search) return videos;
-    return videos.filter((v) => (v.title || "").toLowerCase().startsWith(search));
+    return videos.filter((v) =>
+      (v.title || "").toLowerCase().startsWith(search)
+    );
   }, [videos, texteRecherche]);
 
   const displayedVideos = useMemo(() => {
@@ -84,11 +83,13 @@ const Navbar = () => {
   const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const buildVideoUrl = (filePath) => {
     if (!filePath) return "";
-    if (filePath.startsWith("http://") || filePath.startsWith("https://")) return filePath;
+    if (
+      filePath.startsWith("http://") ||
+      filePath.startsWith("https://")
+    )
+      return filePath;
     return `${apiBase}${filePath.startsWith("/") ? "" : "/"}${filePath}`;
   };
-
-  const navigate = useNavigate();
 
   return (
     <Card className="awNav-page">
@@ -100,10 +101,26 @@ const Navbar = () => {
 
         <div className="mileieu">
           <ul className="awNav-subMenu">
-            <li><button type="button" className="awNav-subLink">Nouveautés</button></li>
-            <li><button type="button" className="awNav-subLink">Tendances</button></li>
-            <li><button type="button" className="awNav-subLink">Les plus regardés</button></li>
-            <li><button type="button" className="awNav-subLink">Les plus longues</button></li>
+            <li>
+              <button type="button" className="awNav-subLink">
+                Nouveautés
+              </button>
+            </li>
+            <li>
+              <button type="button" className="awNav-subLink">
+                Tendances
+              </button>
+            </li>
+            <li>
+              <button type="button" className="awNav-subLink">
+                Les plus regardés
+              </button>
+            </li>
+            <li>
+              <button type="button" className="awNav-subLink">
+                Les plus longues
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -120,117 +137,48 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MAIN */}
-      <div className="awNav-main">
-        {/* LEFT SIDEBAR sticky */}
-        <aside className="awNav-left">
-          <div className="awNav-leftSticky">
-            <div className="awNav-leftBlock">
-              <div className="awNav-leftHead">
-                <AddToPhotosIcon className="awNav-leftIcon" />
-                <Typography variant="h5" component="h3" className="awNav-leftTitle">
-                  Ma Bibliothèque
-                </Typography>
-              </div>
-
-              <ul className="awNav-leftMenu">
-                <li><button type="button" className="awNav-leftLink">Mon historique</button></li>
-                <li>
-                  <ThumbUpIcon className="awNav-miniIcon" />
-                  <button type="button" className="awNav-leftLink">Mes favoris</button>
-                </li>
-                <li>
-                  <VideoLibraryIcon className="awNav-miniIcon" />
-                  <button type="button" className="awNav-leftLink awNav-leftPink">
-                    Show all videos
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            <Divider className="awNav-divider" />
-
-            <div className="awNav-leftBlock">
-              <Typography variant="h5" component="h3" className="awNav-leftTitle2">
-                Channels
-              </Typography>
-
-              <ul className="awNav-leftMenuSmall">
-                <li><button type="button" className="awNav-leftLink">Web tv</button></li>
-                <li><button type="button" className="awNav-leftLink">Actu debat tv</button></li>
-                <li><button type="button" className="awNav-leftLink">Breaking news tv</button></li>
-              </ul>
-            </div>
-
-            <Divider className="awNav-divider" />
-
-            <div className="awNav-leftBlock">
-              <Typography variant="h6" component="h3" className="awNav-categoryTitle">
-                Web catégories
-              </Typography>
-
-              <ul className="awNav-leftMenuSmall">
-                {["Web comedie", "Actualités", "Prank", "Web series", "Débats", "Lives"].map((x) => (
-                  <li key={x}>
-                    <button type="button" className="awNav-leftLink">{x}</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <Divider className="awNav-divider" />
-
-            <div className="awNav-leftBlock">
-              <Typography variant="h6" component="h3" className="awNav-categoryTitle">
-                Web cinéma
-              </Typography>
-
-              <ul className="awNav-leftMenuSmall">
-                {["Thriller", "Romance", "Actions", "suspenses", "Séries", "Lives"].map((x) => (
-                  <li key={x}>
-                    <button type="button" className="awNav-leftLink">{x}</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* MAIN : désormais via SidebarLayout */}
+      <SidebarLayout>
+        {loadingVideos ? (
+          <div className="awNav-empty">Chargement des vidéos...</div>
+        ) : errorVideos ? (
+          <div className="awNav-empty">{errorVideos}</div>
+        ) : displayedVideos.length === 0 ? (
+          <div className="awNav-empty">
+            Oups !!! Aucune vidéo ne correspond à la recherche.
           </div>
-        </aside>
+        ) : (
+          <ImageList className="awNav-videoGrid" cols={4} gap={24}>
+            {displayedVideos.map((v) => (
+              <VideoCard
+                key={v.id}
+                video={v}
+                buildVideoUrl={buildVideoUrl}
+                onClick={() => navigate(`/video/${v.id}`)}
+                previewSeconds={10}
+              />
+            ))}
+          </ImageList>
+        )}
 
-        {/* CONTENT */}
-        <section className="awNav-content">
-          {loadingVideos ? (
-            <div className="awNav-empty">Chargement des vidéos...</div>
-          ) : errorVideos ? (
-            <div className="awNav-empty">{errorVideos}</div>
-          ) : displayedVideos.length === 0 ? (
-            <div className="awNav-empty">Oups !!! Aucune vidéo ne correspond à la recherche.</div>
-          ) : (
-            <ImageList className="awNav-videoGrid" cols={4} gap={24}>
-              {displayedVideos.map((v) => (
-                <VideoCard
-                  key={v.id}
-                  video={v}
-                  buildVideoUrl={buildVideoUrl}
-                  onClick={() => navigate(`/video/${v.id}`)}
-                  previewSeconds={10}
-                />
-              ))}
-            </ImageList>
-          )}
-
-          {!loadingVideos && !errorVideos && displayedVideos.length > 0 && (
-            <div className="awNav-bottom">
-              {canLoadMore ? (
-                <button type="button" onClick={loadMore} className="awNav-button">
-                  Plus de vidéos
-                </button>
-              ) : (
-                <div className="awNav-end">Toutes les vidéos sont affichées.</div>
-              )}
-            </div>
-          )}
-        </section>
-      </div>
+        {!loadingVideos && !errorVideos && displayedVideos.length > 0 && (
+          <div className="awNav-bottom">
+            {canLoadMore ? (
+              <button
+                type="button"
+                onClick={loadMore}
+                className="awNav-button"
+              >
+                Plus de vidéos
+              </button>
+            ) : (
+              <div className="awNav-end">
+                Toutes les vidéos sont affichées.
+              </div>
+            )}
+          </div>
+        )}
+      </SidebarLayout>
     </Card>
   );
 };
