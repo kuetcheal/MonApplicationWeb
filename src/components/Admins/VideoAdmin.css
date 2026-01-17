@@ -1,0 +1,213 @@
+.adVideos {
+  color: #fff;
+}
+
+.adVideosHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.adVideosTitle {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.adVideosSub {
+  opacity: 0.8;
+  margin-top: 6px;
+  color: rgb(255, 154, 98);
+}
+
+.adVideosRefresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+}
+
+.adVideosRefresh:hover {
+  border-color: rgba(224, 12, 139, 0.55);
+}
+
+.adVideosEmpty {
+  margin-top: 22px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+/* Upload card */
+.adVideosUploadCard {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.adVideosUploadTitle {
+  font-weight: 900;
+  font-size: 18px;
+  margin-bottom: 10px;
+  opacity: 0.95;
+}
+
+.adVideosUploadForm {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr 160px;
+  gap: 10px;
+  align-items: center;
+}
+
+.adVideosInput,
+.adVideosInlineInput {
+  width: 100%;
+  border-radius: 12px;
+  padding: 12px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #fff;
+  outline: none;
+}
+
+.adVideosInput:focus,
+.adVideosInlineInput:focus {
+  border-color: rgba(224, 12, 139, 0.55);
+}
+
+.adVideosFile {
+  width: 100%;
+  color: rgba(255,255,255,0.85);
+}
+
+.adVideosUploadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #fff;
+  cursor: pointer;
+}
+
+.adVideosUploadBtn:hover {
+  border-color: rgba(224, 12, 139, 0.55);
+}
+
+.adVideosHint {
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* Table */
+.adVideosCard {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.adVideosTableHead {
+  display: grid;
+  grid-template-columns: 90px 1.6fr 1fr 120px 120px 170px;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.adVideosRow {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 90px 1.6fr 1fr 120px 120px 170px;
+  gap: 12px;
+  padding: 16px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: center;
+}
+
+.adVideosName {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.adVideosCategory {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.adVideosLink {
+  color: rgb(255, 154, 98);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.adVideosLink:hover {
+  text-decoration: underline;
+}
+
+.adVideosRight {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.adVideosDelete,
+.adVideosSave,
+.adVideosCancel,
+.adVideosAction {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.adVideosDelete:hover,
+.adVideosSave:hover,
+.adVideosCancel:hover,
+.adVideosAction:hover {
+  border-color: rgba(224, 12, 139, 0.55);
+}
+
+@media (max-width: 1100px) {
+  .adVideosUploadForm {
+    grid-template-columns: 1fr;
+  }
+  .adVideosTableHead,
+  .adVideosRow {
+    grid-template-columns: 90px 1.6fr 1fr;
+  }
+  .adVideosTableHead > :nth-child(4),
+  .adVideosTableHead > :nth-child(5),
+  .adVideosTableHead > :nth-child(6),
+  .adVideosRow > :nth-child(4),
+  .adVideosRow > :nth-child(5),
+  .adVideosRow > :nth-child(6) {
+    display: none;
+  }
+}

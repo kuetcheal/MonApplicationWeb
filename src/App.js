@@ -22,6 +22,8 @@ import NotFoundPage from "./components/NotFoundPage";
 import Accueil from "./components/Admins/Accueil";
 import Clients from "./components/Admins/clients";
 import AdminLayout from "./components/Admins/AdminLayout";
+import VideoAdmin from "./components/Admins/VideoAdmin";
+import Categories from "./components/Admins/Categories";
 
 // settings du user
 import Setting from "./components/settings/setting";
@@ -63,6 +65,8 @@ const App = () => {
           <Route element={<AdminLayout />}>
             <Route path="/Accueil" element={<Accueil />} />
             <Route path="/clients" element={<Clients />} />
+            <Route path="/VideoAdmin" element={<VideoAdmin/>} />
+              <Route path="/Categories" element={<Categories/>} />
           </Route>
 
           {/* Settings */}

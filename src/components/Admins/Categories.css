@@ -1,0 +1,118 @@
+.adCats { color:#fff; }
+
+.adCatsHead{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:16px; margin-bottom:14px;
+}
+
+.adCatsTitle{ margin:0; font-size:34px; font-weight:900; }
+
+.adCatsSub{
+  opacity:.8; margin-top:6px; color:rgb(255,154,98);
+}
+
+.adCatsRefresh{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:10px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  color:#fff; cursor:pointer;
+}
+.adCatsRefresh:hover{ border-color:rgba(224,12,139,.55); }
+
+.adCatsEmpty{
+  margin-top:22px; opacity:.9;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px; padding:22px;
+}
+
+/* create */
+.adCatsCreateCard{
+  margin-top:10px; margin-bottom:14px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px; padding:14px;
+}
+
+.adCatsCreateForm{
+  display:grid;
+  grid-template-columns: 1fr 170px;
+  gap:10px; align-items:center;
+}
+
+.adCatsInput, .adCatsInlineInput{
+  width:100%;
+  border-radius:12px;
+  padding:12px 12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.10);
+  color:#fff; outline:none;
+}
+
+.adCatsInput:focus, .adCatsInlineInput:focus{
+  border-color:rgba(224,12,139,.55);
+}
+
+.adCatsCreateBtn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:12px 14px; border-radius:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.10);
+  color:#fff; cursor:pointer;
+}
+.adCatsCreateBtn:hover{ border-color:rgba(224,12,139,.55); }
+
+/* table */
+.adCatsCard{
+  margin-top:10px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px; padding:14px;
+}
+
+.adCatsTableHead{
+  display:grid;
+  grid-template-columns: 110px 1fr 160px;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  font-weight:800; opacity:.85;
+}
+
+.adCatsRow{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 110px 1fr 160px;
+  gap:12px;
+  padding:16px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  align-items:center;
+}
+
+.adCatsName{ font-weight:800; color:rgba(255,255,255,.92); }
+
+.adCatsRight{ display:flex; justify-content:flex-end; gap:10px; }
+
+.adCatsDelete,.adCatsSave,.adCatsCancel,.adCatsAction{
+  width:44px; height:44px; border-radius:999px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff; cursor:pointer;
+  display:grid; place-items:center;
+}
+
+.adCatsDelete:hover,.adCatsSave:hover,.adCatsCancel:hover,.adCatsAction:hover{
+  border-color:rgba(224,12,139,.55);
+}
+
+@media (max-width: 900px){
+  .adCatsCreateForm{ grid-template-columns: 1fr; }
+  .adCatsTableHead,.adCatsRow{ grid-template-columns: 90px 1fr; }
+  .adCatsTableHead > :nth-child(3),
+  .adCatsRow > :nth-child(3){ display:none; }
+}

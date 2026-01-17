@@ -2,11 +2,27 @@
 import httpClient from "./httpClient";
 
 export const videoApi = {
-  getAll: (params = {}) => httpClient.get("/api/videos", { params }),
-
+getAll: (params = {}) => httpClient.get("/api/videos", { params }),
   getOne: (id) => httpClient.get(`/api/videos/${id}`),
 
+  upload: ({ title, categoryId, file }) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    if (categoryId !== null && categoryId !== "" && categoryId !== undefined) {
+      formData.append("categoryId", String(categoryId));
+    }
+    formData.append("video", file);
+
+    return httpClient.post("/api/videos/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
+
+  update: (id, payload) => httpClient.patch(`/api/videos/${id}`, payload),
+
   remove: (id) => httpClient.delete(`/api/videos/${id}`),
+
+  
 
   // +1 vue
   addView: (id) => httpClient.post(`/api/videos/${id}/view`),

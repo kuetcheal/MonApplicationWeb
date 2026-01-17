@@ -4,6 +4,7 @@ import "./adminLayout.css";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
+import CategoryIcon from "@mui/icons-material/Category";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -22,7 +23,8 @@ const AdminLayout = () => {
   const navItems = [
     { label: "Dashboard", to: "/Accueil", icon: <DashboardIcon /> },
     { label: "Utilisateurs", to: "/clients", icon: <GroupIcon /> },
-    { label: "Vidéos", to: "/admin/videos", icon: <VideoLibraryIcon /> },
+    { label: "Vidéos", to: "/VideoAdmin", icon: <VideoLibraryIcon /> },
+    { label: "Catégories", to: "/Categories", icon: <CategoryIcon /> },
     { label: "Paramètres", to: "/admin/parametres", icon: <SettingsIcon /> },
   ];
 
