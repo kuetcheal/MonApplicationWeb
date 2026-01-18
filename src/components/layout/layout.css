@@ -1,10 +1,28 @@
+
+
 .appLayout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: black;
+  background: #000;
 }
 
+/* zone centrale */
 .appContent {
   flex: 1;
+  width: 100%;
+}
+
+/* ✅ container uniforme */
+.siteContainer {
+  width: 100%;
+  max-width: 1520px;     
+  margin: 0 auto;
+  padding: 0 18px;      
+  box-sizing: border-box;
+}
+
+/* optionnel : éviter tout débordement horizontal */
+html, body {
+  overflow-x: hidden;
 }

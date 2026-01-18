@@ -1,17 +1,13 @@
-// src/components/navbar.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { Card, ImageList } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import SearchIcon from "@mui/icons-material/Search";
-
 import "./navbar.css";
-
 import { videoApi } from "../api";
 import VideoCard from "./common/VideoCard";
 import SidebarLayout from "./sidebarLayout";
 
-const PAGE_SIZE = 16; // 4x4
+const PAGE_SIZE = 16; 
 
 const Navbar = () => {
   const [texteRecherche, setTexteRecherche] = useState("");
@@ -148,7 +144,7 @@ const Navbar = () => {
             Oups !!! Aucune vidéo ne correspond à la recherche.
           </div>
         ) : (
-          <ImageList className="awNav-videoGrid" cols={4} gap={24}>
+          <ImageList className="awNav-videoGrid" cols={4} gap={11}>
             {displayedVideos.map((v) => (
               <VideoCard
                 key={v.id}

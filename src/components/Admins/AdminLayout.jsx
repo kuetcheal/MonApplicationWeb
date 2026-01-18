@@ -4,6 +4,7 @@ import "./adminLayout.css";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import CategoryIcon from "@mui/icons-material/Category";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -25,7 +26,9 @@ const AdminLayout = () => {
     { label: "Utilisateurs", to: "/clients", icon: <GroupIcon /> },
     { label: "Vidéos", to: "/VideoAdmin", icon: <VideoLibraryIcon /> },
     { label: "Catégories", to: "/Categories", icon: <CategoryIcon /> },
-    { label: "Paramètres", to: "/admin/parametres", icon: <SettingsIcon /> },
+     { label: "Messages", to: "/Messages", icon: <MailOutlineIcon /> },
+
+  { label: "Paramètres", to: "/admin/parametres", icon: <SettingsIcon /> },
   ];
 
   return (

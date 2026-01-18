@@ -20,7 +20,7 @@ const Header1 = () => {
     { label: "Actrices", path: "/actrices" },
     { label: "Nos Lives", path: "/lives" },
     { label: "Nos Engagements", path: "/engagements" },
-    { label: "Nos Acteurs", path: "/acteurs" },
+    { label: "Contacts", path: "/Contact" },
   ];
 
   const handleOpenSettings = (e) => setAnchorEl(e.currentTarget);
@@ -66,7 +66,7 @@ const Header1 = () => {
           open={openSettings}
           anchorEl={anchorEl}
           onClose={handleCloseSettings}
-          keepMounted                 // ✅ évite certains démontages/rebuild
+          keepMounted                
           container={document.body}
           disableScrollLock
           disableRestoreFocus

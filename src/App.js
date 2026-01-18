@@ -12,7 +12,6 @@ import ForgetPassword from "./components/Authentification/forgetPassword";
 
 // APP
 import Navbar from "./components/navbar";
-import VideoCard from "./components/common/VideoCard";
 import SingleVideo from "./components/SingleVideo";
 import Header from "./components/header";
 import Fluxod from "./components/fluxod";
@@ -24,6 +23,7 @@ import Clients from "./components/Admins/clients";
 import AdminLayout from "./components/Admins/AdminLayout";
 import VideoAdmin from "./components/Admins/VideoAdmin";
 import Categories from "./components/Admins/Categories";
+import MessageAdmin from "./components/Admins/MessageAdmin";
 
 // settings du user
 import Setting from "./components/settings/setting";
@@ -35,7 +35,8 @@ import Layout from "./components/layout/layout";
 
 // pages
 import Favoris from "./pages/favoris";
-import Allcategories from "./pages/Allcategories"; 
+import Allcategories from "./pages/Allcategories";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
@@ -49,24 +50,23 @@ const App = () => {
         <Route path="/errorPassword" element={<ErrorPassword />} />
         <Route path="/alertPassword" element={<AlertPassword />} />
 
-        {/* PARTIE APP avec Layout principal */}
+        {/* APP avec Layout */}
         <Route element={<Layout />}>
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/Allcategories" element={<Allcategories />} />
-          <Route path="/VideoCard" element={<VideoCard />} />
           <Route path="/video/:id" element={<SingleVideo />} />
           <Route path="/header" element={<Header />} />
           <Route path="/fluxod" element={<Fluxod />} />
-
-          {/* Page favoris qui, elle, utilise SidebarLayout en interne */}
           <Route path="/favoris" element={<Favoris />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* Admin sous-layout */}
           <Route element={<AdminLayout />}>
             <Route path="/Accueil" element={<Accueil />} />
             <Route path="/clients" element={<Clients />} />
-            <Route path="/VideoAdmin" element={<VideoAdmin/>} />
-              <Route path="/Categories" element={<Categories/>} />
+            <Route path="/VideoAdmin" element={<VideoAdmin />} />
+            <Route path="/Categories" element={<Categories />} />
+            <Route path="/Messages" element={<MessageAdmin />} />
           </Route>
 
           {/* Settings */}
