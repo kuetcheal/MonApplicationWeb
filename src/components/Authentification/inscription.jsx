@@ -2,27 +2,26 @@ import React, { useState } from "react";
 import { Typography, Card } from "@mui/material";
 import "./inscription.css";
 import { Link, useNavigate } from "react-router-dom";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Swal from "sweetalert2";
 import Confirmation from "./confirmation.jsx";
 import { authApi } from "../../api/authApi";
 
-const styles = {
+const pageStyles = {
   card: {
     backgroundColor: "black",
     minHeight: "100vh",
     width: "100%",
     display: "flex",
     flexDirection: "column",
+    borderRadius: 0,
+    boxShadow: "none",
   },
 };
 
 const Inscription = () => {
   const navigate = useNavigate();
 
-  const [admins, setAdmins] = useState({
+  const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
     password: "",
@@ -30,42 +29,41 @@ const Inscription = () => {
 
   const [passwordError, setPasswordError] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Validation simple
     if (
-      admins.password.length < 8 ||
-      !/\d/.test(admins.password) ||
-      !/[a-zA-Z]/.test(admins.password)
+      registerData.password.length < 8 ||
+      !/\d/.test(registerData.password) ||
+      !/[a-zA-Z]/.test(registerData.password)
     ) {
-      setPasswordError(
-        "Le mot de passe doit contenir au moins 8 caractères, avec lettres et chiffres."
-      );
+      const msg =
+        "Le mot de passe doit contenir au moins 8 caractères, avec lettres et chiffres.";
+      setPasswordError(msg);
       Swal.fire({
         icon: "error",
         title: "Oups !!!",
-        text: "Le mot de passe doit contenir au moins 8 caractères, y compris des chiffres et des lettres.",
+        text: msg,
       });
       return;
     }
+
     setPasswordError("");
+    setIsRegistering(true);
 
     try {
-      // ✅ Symfony attend: nom, email, password
       const payload = {
-        nom: admins.name,
-        email: admins.email,
-        password: admins.password,
+        nom: registerData.name,
+        email: registerData.email,
+        password: registerData.password,
       };
 
       const res = await authApi.register(payload);
 
       if (res.status === 200 || res.status === 201) {
-        // ✅ stocke l'email pour que Confirmation le récupère même si on change de page
-        localStorage.setItem("pending_email", admins.email);
-
+        localStorage.setItem("pending_email", registerData.email);
         setShowConfirmation(true);
       }
     } catch (err) {
@@ -82,156 +80,171 @@ const Inscription = () => {
 
       setShowConfirmation(false);
       console.error(err);
+    } finally {
+      setIsRegistering(false);
     }
   };
 
   return (
-    <Card style={styles.card}>
-        <div className="auth-container">
-      <div className="page">
-        <div className="header">
-          <div className="logo">
-            <img
-              src={process.env.PUBLIC_URL + "/jenee-logo.svg"}
-              alt="Logo"
-              style={{ height: "110px", width: "110px" }}
-            />
-          </div>
+    <Card style={pageStyles.card}>
+      <div className="register-shell">
+        <div className="register-split">
+          <section className="register-left-zone">
+            <div className="register-left-body">
+              <div className="register-form-box">
+                <div className="register-main-title">
+                  <Typography variant="h3" component="h2">
+                    S'inscrire
+                  </Typography>
+                </div>
 
-          <div className="connection">
-            <Typography variant="h4" component="h1">
-              X Inscription
-            </Typography>
-          </div>
+                <div className="register-switch-line">
+                  <Typography variant="h5" component="h3">
+                    vous avez déjà un compte ?
+                    <Link className="register-inline-link" to="/connexion">
+                      <span> Connectez-vous</span>
+                    </Link>
+                  </Typography>
+                </div>
 
-          <div className="annonce">
-            <div className="tittle" style={{ color: "white" }}>
-              <Typography variant="h4" component="h1">
-                AFRICA-<span>WEB</span>
-              </Typography>
-            </div>
-            <div className="slogan">
-              <Typography variant="h4" component="h1">
-                Explorer l'univers du web Africain 2.0
-              </Typography>
-            </div>
-          </div>
-        </div>
+                <form
+                  onSubmit={handleRegisterSubmit}
+                  className="register-form-area"
+                >
+                  <div className="register-field-row">
+                    <input
+                      className="register-text-field"
+                      required
+                      placeholder="username"
+                      type="text"
+                      value={registerData.name}
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          name: e.target.value,
+                        })
+                      }
+                      disabled={isRegistering}
+                    />
+                  </div>
 
-        <div className="main">
-          <div className="box">
-            <div className="slogane">
-              <Typography variant="h3" component="h1" style={{ color: "white" }}>
-                S'inscrire
-              </Typography>
-            </div>
+                  <div className="register-field-row">
+                    <input
+                      className="register-text-field"
+                      required
+                      placeholder="email"
+                      type="email"
+                      value={registerData.email}
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          email: e.target.value,
+                        })
+                      }
+                      disabled={isRegistering}
+                    />
+                  </div>
 
-            <div className="inscription">
-              <Typography variant="h5" component="h1" style={{ color: "white" }}>
-                vous avez déjà un compte ?
-                <Link className="suppression__link" to="/connexion">
-                  <span>Connectez-vous</span>
-                </Link>
-              </Typography>
-            </div>
+                  <div className="register-field-row">
+                    <input
+                      className="register-text-field"
+                      required
+                      placeholder="Mot de passe"
+                      type="password"
+                      value={registerData.password}
+                      onChange={(e) =>
+                        setRegisterData({
+                          ...registerData,
+                          password: e.target.value,
+                        })
+                      }
+                      disabled={isRegistering}
+                    />
+                    {passwordError && (
+                      <p className="register-error-text">{passwordError}</p>
+                    )}
+                  </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="input-containere">
-                <input
-                  className="edit"
-                  required
-                  placeholder="username"
-                  type="text"
-                  value={admins.name}
-                  onChange={(e) =>
-                    setAdmins({ ...admins, name: e.target.value })
-                  }
+                  <div className="register-button-row">
+                    <button
+                      className="register-submit-btn"
+                      type="submit"
+                      disabled={isRegistering}
+                    >
+                      {isRegistering ? "Inscription..." : "S'inscrire"}
+                    </button>
+                  </div>
+                </form>
+
+                <Confirmation
+                  open={showConfirmation}
+                  email={registerData.email}
+                  handleClose={() => setShowConfirmation(false)}
+                  onConfirmed={() => {
+                    setShowConfirmation(false);
+                    localStorage.removeItem("pending_email");
+                    navigate("/connexion");
+                  }}
                 />
+
+                <div className="register-help-row">
+                  <Typography variant="h5" component="h3">
+                    Oups un problème ?
+                    <Link
+                      to="/forgetPassword"
+                      className="register-inline-link"
+                    >
+                      <span> Mot de passe oublié</span>
+                    </Link>
+                  </Typography>
+                </div>
               </div>
+            </div>
+          </section>
 
-              <div className="input-containere">
-                <input
-                  className="edit"
-                  required
-                  placeholder="email"
-                  type="email"
-                  value={admins.email}
-                  onChange={(e) =>
-                    setAdmins({ ...admins, email: e.target.value })
-                  }
-                />
+          <section
+            className="register-right-zone"
+            style={{
+              backgroundImage: `linear-gradient(rgba(90,90,90,0.58), rgba(90,90,90,0.58)), url(${process.env.PUBLIC_URL + "/connexion.png"})`,
+            }}
+          >
+            <div className="register-right-overlay">
+              <div className="register-hero-center">
+                <div className="register-brand-title">
+                  <Typography variant="h2" component="h1">
+                    AFRICA-<span>WEB</span>
+                  </Typography>
+                </div>
+
+                <div className="register-brand-subtitle">
+                  <Typography variant="h4" component="h2">
+                    Explorer l'univers du web Africain 2.0
+                  </Typography>
+                </div>
               </div>
+            </div>
+          </section>
+        </div>
 
-              <div className="input-containere-col">
-                <input
-                  className="edit"
-                  required
-                  placeholder="Mot de passe"
-                  type="password"
-                  value={admins.password}
-                  onChange={(e) =>
-                    setAdmins({ ...admins, password: e.target.value })
-                  }
-                />
-                {passwordError && <p className="error">{passwordError}</p>}
-              </div>
-
-              <div className="contenaire">
-                <button className="connecter-button" type="submit">
-                  S'inscrire
-                </button>
-              </div>
-            </form>
-
-            <Confirmation
-              open={showConfirmation}
-              email={admins.email}
-              handleClose={() => {
-                setShowConfirmation(false);
-              }}
-              onConfirmed={() => {
-                setShowConfirmation(false);
-                localStorage.removeItem("pending_email");
-                navigate("/connexion");
-              }}
-            />
-
-
-            <div className="inscription">
-              <Typography variant="h5" component="h1" style={{ color: "white" }}>
-                Oups un problème ?
-                <Link to="/forgetPassword" className="suppression__link">
-                  <span>Mot de passe oublié</span>
-                </Link>
-              </Typography>
+        <footer className="register-footer-bar">
+          <div className="register-footer-left">
+            <div className="register-footer-logo">
+              <img
+                src={process.env.PUBLIC_URL + "/jenee-logo.svg"}
+                alt="Logo Jenee"
+              />
             </div>
           </div>
 
-          <div className="site">
-            <img src={process.env.PUBLIC_URL + "/site.PNG"} alt="Site" />
+          <div className="register-footer-center">
+            <Link to="/#">@Jenee</Link>
+            <Link to="/#">Contact</Link>
+            <Link to="/#">politique de Confidentialité</Link>
+            <Link to="/#">Contact</Link>
+            <Link to="/#">Mentions légales</Link>
+            <Link to="/#">CGU</Link>
           </div>
-        </div>
-      </div>
-
-      <div className="confidentialite">
-        <div className="items">
-          <Link to="/#">@Jenee</Link>
-          <Link to="/#">Contact</Link>
-          <Link to="/#">Confidentialité</Link>
-          <Link to="/#">CGU</Link>
-        </div>
-        <div className="outils">
-          <Link to="/#">
-            <FacebookIcon />
-          </Link>
-          <Link to="/#">
-            <TwitterIcon />
-          </Link>
-          <Link to="/#">
-            <WhatsAppIcon />
-          </Link>
-        </div>
-      </div>
+        </footer>
       </div>
     </Card>
   );
